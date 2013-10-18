@@ -42,8 +42,13 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="test.bmp">
-      <Name>test</Name>
+    <Compile Include="LoadingPlaceHolder.bmp">
+      <Name>LoadingPlaceHolder</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="MenuPlaceHolder.bmp">
+      <Name>MenuPlaceHolder</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>

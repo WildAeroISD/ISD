@@ -19,7 +19,20 @@ namespace ItalianStickDudes
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
 
-        SpriteManager spriteManager;
+        MenuState MainMenu;
+        LoadingState LoadState;
+        PlayingState PlayState;
+
+        enum GameStates
+        {
+            MENU, 
+            LOADING,
+            PLAYING, 
+            END_GAME,
+            EDITOR
+        }
+
+        GameStates CurrentState;
 
         public Game1()
         {
@@ -40,8 +53,13 @@ namespace ItalianStickDudes
         /// </summary>
         protected override void Initialize()
         {
-            spriteManager = new SpriteManager();
-
+            CurrentState = GameStates.MENU;
+            
+            MainMenu = new MenuState();
+            LoadState = new LoadingState();
+            PlayState = new PlayingState();
+            
+            
             base.Initialize();
         }
 
@@ -53,8 +71,8 @@ namespace ItalianStickDudes
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
-            Texture2D tex = Content.Load<Texture2D>("test");
-            spriteManager.AddNewSprite(tex, new Vector2(10, 20));
+            Texture2D tex = Content.Load<Texture2D>("MenuPlaceHolder");
+            MainMenu.Initialize(tex);
         }
 
         /// <summary>
@@ -63,7 +81,7 @@ namespace ItalianStickDudes
         /// </summary>
         protected override void UnloadContent()
         {
-            // TODO: Unload any non ContentManager content here
+            
         }
 
         /// <summary>
@@ -77,7 +95,41 @@ namespace ItalianStickDudes
             if (Keyboard.GetState().IsKeyDown(Keys.Escape))
                 this.Exit();
 
-            spriteManager.UpdateSprites(gameTime);
+            switch (CurrentState)
+            {
+                case GameStates.PLAYING:
+                    {
+                        PlayState.Update(gameTime);
+                    } break;
+
+                case GameStates.MENU:
+                    {
+                        MainMenu.Update(gameTime);
+
+                        if (MainMenu.ExitGame)
+                            this.Exit();
+                        else if (MainMenu.PlayGame)
+                        {
+                            CurrentState = GameStates.LOADING;
+                            LoadState.Initialize(PlayState, Content);
+                        }
+
+                    } break;
+
+                case GameStates.LOADING:
+                    {
+                        LoadState.Load("test");
+                        if (LoadState.DoneLoading)
+                            CurrentState = GameStates.PLAYING;
+                    } break;
+
+                case GameStates.END_GAME:
+                    {
+
+                    } break;
+            }
+
+            MainMenu.Update(gameTime);
 
             base.Update(gameTime);
         }
@@ -90,7 +142,28 @@ namespace ItalianStickDudes
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
-            spriteManager.DrawSprites(spriteBatch);
+            switch (CurrentState)
+            {
+                case GameStates.MENU:
+                    {
+                        MainMenu.Draw(spriteBatch);
+                    } break;
+
+                case GameStates.LOADING:
+                    {
+                        LoadState.DrawScreen(spriteBatch);
+                    } break;
+
+                case GameStates.PLAYING:
+                    {
+                        PlayState.Draw(spriteBatch);
+                    } break;
+
+                case GameStates.END_GAME:
+                    {
+
+                    } break;
+            }
 
             base.Draw(gameTime);
         }
