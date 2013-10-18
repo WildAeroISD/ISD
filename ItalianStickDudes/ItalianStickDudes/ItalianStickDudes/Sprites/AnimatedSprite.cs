@@ -25,6 +25,8 @@ namespace ItalianStickDudes
         protected long TimeStep;
         protected Stopwatch AnimationTimer;
 
+        protected bool Flip;
+
         public AnimatedSprite()
         {
             Rows = 0;
@@ -34,6 +36,8 @@ namespace ItalianStickDudes
             EndFrame = 0;
             TimeStep = 0;
             AnimationTimer = new Stopwatch();
+
+            Flip = false;
         }
 
         public virtual void Initialize(Texture2D texture, Vector2 position)

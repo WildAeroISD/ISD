@@ -15,7 +15,9 @@ namespace ItalianStickDudes
         private Vector2 Velocity;
 
         private bool Running = false;
-        private bool Once = false;
+        private bool OnceRun = false;
+        private bool OnceIdle = false;
+        
 
         public Player()
         {
@@ -28,7 +30,7 @@ namespace ItalianStickDudes
             SpriteTexture = playerTexture;
             PlayerNumber = WhichPlayer;
             
-            InitializeAnimation(1, 7);
+            InitializeAnimation(1, 5);
             PlayAnimation(0, 2, 800);
         }
 
@@ -37,8 +39,13 @@ namespace ItalianStickDudes
             base.Update(gameTime);
             GamePadState gamePad = Input.GetCurrentGamePadState(PlayerNumber);
 
-         
-            Velocity.X += gamePad.ThumbSticks.Left.X;
+            float amount = gamePad.ThumbSticks.Left.X;
+            Velocity.X += amount;
+
+            if(amount > 0.0f)
+                Flip = false;
+            else if(amount < 0.0f)
+                Flip = true;
 
             if (gamePad.ThumbSticks.Left.X == 0.0f)
             {
@@ -46,37 +53,65 @@ namespace ItalianStickDudes
                 {
                     Velocity.X -= 0.6f;
                     Running = true;
+                    OnceIdle = false;
                 }
                 else if (Velocity.X < -1.0f)
                 {
                     Running = true;
+                    OnceIdle = false;
                     Velocity.X += 0.6f;
                 }
 
                 if (Velocity.X < 1.0f && Velocity.X > -1.0f)
                 {
                     Velocity.X = 0.0f;
-                    Once = false;
+                    OnceRun = false;
                     Running = false;
-                    PlayAnimation(0, 2, 800);
                 }
             }
 
-            if (!Once)
+            if (!OnceRun)
             {
                 if (Running)
                 {
-                    PlayAnimation(3, 6, 100);
-                    Once = true;
+                    PlayAnimation(3, 5, 300);
+                    OnceRun = true;
                 }
             }
 
-            if (Velocity.X >= 30.0f)
-                Velocity.X = 30.0f;
-            else if (Velocity.X <= -30.0f)
-                Velocity.X = -30.0f;
+            if(!OnceIdle)
+            {
+                if(!Running)
+                {
+                    PlayAnimation(0, 2, 800);
+                    OnceIdle = true;
+                }
+            }
+
+            if (Velocity.X >= 20.0f)
+                Velocity.X = 20.0f;
+            else if (Velocity.X <= -20.0f)
+                Velocity.X = -20.0f;
 
             Position += Velocity;
+        }
+
+        public virtual void Draw(SpriteBatch spriteBatch)
+        {
+            int width = SpriteTexture.Width / Columns;
+            int height = SpriteTexture.Height / Rows;
+            int row = (int)((float)CurrentFrame / (float)Columns);
+            int col = CurrentFrame % Columns;
+
+            Rectangle sourceRectangle = new Rectangle(width * col, height * row, width, height);
+            Rectangle destinationRectangle = new Rectangle((int)Position.X, (int)Position.Y, width, height);
+
+            spriteBatch.Begin();
+            if(Flip)
+                spriteBatch.Draw(SpriteTexture, destinationRectangle, sourceRectangle, Color.White, 0, new Vector2(0, 0), SpriteEffects.FlipHorizontally, 0.0f);
+            else
+                spriteBatch.Draw(SpriteTexture, destinationRectangle, sourceRectangle, Color.White, 0, new Vector2(0, 0), SpriteEffects.None, 0.0f);
+            spriteBatch.End();
         }
     }
 }
