@@ -15,6 +15,8 @@ namespace ItalianStickDudes
         public InputManager Input;
         private bool Paused;
 
+        private Camera camera;
+
         public Player PlayerOne;
         public Player PlayerTwo;
         public Player PlayerThree;
@@ -26,6 +28,8 @@ namespace ItalianStickDudes
         {
             Paused = false;
             Input = new InputManager();
+            camera = new Camera();
+
             PlayerOne = new Player();
             PlayerTwo = new Player();
             PlayerThree = new Player();
@@ -54,6 +58,19 @@ namespace ItalianStickDudes
         public virtual void Update(GameTime gameTime)
         {
             Input.Update();
+
+            KeyboardState currentKeyboard = Input.GetCurrentKeyboardState();
+
+            if (currentKeyboard.IsKeyDown(Keys.Right))
+                camera.Move(new Vector2(10.0f, 0.0f));
+            if (currentKeyboard.IsKeyDown(Keys.Left))
+                camera.Move(new Vector2(-10.0f, 0.0f));
+
+            if (currentKeyboard.IsKeyDown(Keys.Down))
+                camera.Move(new Vector2(0.0f, 10.0f));
+            if (currentKeyboard.IsKeyDown(Keys.Up))
+                camera.Move(new Vector2(0.0f, -10.0f));
+
             if (!Paused)
             {
                 if(Input.AnyPlayerPressed(Buttons.Start))
@@ -72,6 +89,8 @@ namespace ItalianStickDudes
 
         public virtual void Draw(SpriteBatch spriteBatch)
         {
+            Matrix transform = camera.GetTransform();
+
             spriteBatch.Begin();
             if (Paused)
             {
@@ -79,9 +98,9 @@ namespace ItalianStickDudes
             }
             spriteBatch.End();
 
-            PlayerOne.Draw(spriteBatch);
-            PlayerTwo.Draw(spriteBatch);
-            PlayerThree.Draw(spriteBatch);
+            PlayerOne.Draw(spriteBatch, transform);
+            PlayerTwo.Draw(spriteBatch, transform);
+            PlayerThree.Draw(spriteBatch, transform);
         }
 
         public virtual void End()

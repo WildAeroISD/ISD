@@ -11,7 +11,6 @@ namespace ItalianStickDudes
 {   
     class Player : AnimatedSprite
     {
-        
         private int PlayerNumber;
         private Vector2 Velocity;
 
@@ -67,7 +66,6 @@ namespace ItalianStickDudes
                 }
             }
 
-            
             if (Running)
                 PlayAnimation("running");
             else if(!Running)
@@ -81,7 +79,7 @@ namespace ItalianStickDudes
             Position += Velocity;
         }
 
-        public override void Draw(SpriteBatch spriteBatch)
+        public virtual void Draw(SpriteBatch spriteBatch, Matrix transform)
         {
             int width = SpriteTexture.Width / Columns;
             int height = SpriteTexture.Height / Rows;
@@ -91,7 +89,9 @@ namespace ItalianStickDudes
             Rectangle sourceRectangle = new Rectangle(width * col, height * row, width, height);
             Rectangle destinationRectangle = new Rectangle((int)Position.X, (int)Position.Y, width, height);
 
-            spriteBatch.Begin();
+            spriteBatch.Begin(SpriteSortMode.BackToFront,
+                BlendState.AlphaBlend,
+                null, null, null, null, transform);
             if(Flip)
                 spriteBatch.Draw(SpriteTexture, destinationRectangle, sourceRectangle, Color.White, 0, new Vector2(0, 0), SpriteEffects.FlipHorizontally, 0.0f);
             else
