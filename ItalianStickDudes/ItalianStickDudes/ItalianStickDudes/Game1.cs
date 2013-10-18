@@ -19,10 +19,14 @@ namespace ItalianStickDudes
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
 
+        SpriteManager spriteManager;
+
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
+
+            
         }
 
         /// <summary>
@@ -33,8 +37,7 @@ namespace ItalianStickDudes
         /// </summary>
         protected override void Initialize()
         {
-            // TODO: Add your initialization logic here
-
+            spriteManager = new SpriteManager();
             base.Initialize();
         }
 
@@ -46,8 +49,8 @@ namespace ItalianStickDudes
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
+            Texture2D tex = Content.Load<Texture2D>("test");
 
-            // TODO: use this.Content to load your game content here
         }
 
         /// <summary>
@@ -67,10 +70,10 @@ namespace ItalianStickDudes
         protected override void Update(GameTime gameTime)
         {
             // Allows the game to exit
-            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
+            if (Keyboard.GetState().IsKeyDown(Keys.Escape))
                 this.Exit();
 
-            // TODO: Add your update logic here
+            spriteManager.UpdateSprites(gameTime);
 
             base.Update(gameTime);
         }
@@ -83,7 +86,7 @@ namespace ItalianStickDudes
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
-            // TODO: Add your drawing code here
+            spriteManager.DrawSprites(spriteBatch);
 
             base.Draw(gameTime);
         }
