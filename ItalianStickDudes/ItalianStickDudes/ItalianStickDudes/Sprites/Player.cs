@@ -8,16 +8,14 @@ using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Graphics;
 
 namespace ItalianStickDudes
-{
+{   
     class Player : AnimatedSprite
     {
+        
         private int PlayerNumber;
         private Vector2 Velocity;
 
-        private bool Running = false;
-        private bool OnceRun = false;
-        private bool OnceIdle = false;
-        
+        private bool Running = false;        
 
         public Player()
         {
@@ -30,8 +28,10 @@ namespace ItalianStickDudes
             SpriteTexture = playerTexture;
             PlayerNumber = WhichPlayer;
             
-            InitializeAnimation(1, 5);
-            PlayAnimation(0, 2, 800);
+            InitializeAnimation(2, 8);
+            AddAnimation("idle", 0, 2, 800);
+            AddAnimation("running", 3, 9, 600);
+            PlayAnimation("idle");
         }
 
         public virtual void Update(GameTime gameTime, InputManager Input)
@@ -53,40 +53,25 @@ namespace ItalianStickDudes
                 {
                     Velocity.X -= 0.6f;
                     Running = true;
-                    OnceIdle = false;
                 }
                 else if (Velocity.X < -1.0f)
                 {
                     Running = true;
-                    OnceIdle = false;
                     Velocity.X += 0.6f;
                 }
 
                 if (Velocity.X < 1.0f && Velocity.X > -1.0f)
                 {
                     Velocity.X = 0.0f;
-                    OnceRun = false;
                     Running = false;
                 }
             }
 
-            if (!OnceRun)
-            {
-                if (Running)
-                {
-                    PlayAnimation(3, 5, 300);
-                    OnceRun = true;
-                }
-            }
-
-            if(!OnceIdle)
-            {
-                if(!Running)
-                {
-                    PlayAnimation(0, 2, 800);
-                    OnceIdle = true;
-                }
-            }
+            
+            if (Running)
+                PlayAnimation("running");
+            else if(!Running)
+                PlayAnimation("idle");
 
             if (Velocity.X >= 20.0f)
                 Velocity.X = 20.0f;
@@ -96,7 +81,7 @@ namespace ItalianStickDudes
             Position += Velocity;
         }
 
-        public virtual void Draw(SpriteBatch spriteBatch)
+        public override void Draw(SpriteBatch spriteBatch)
         {
             int width = SpriteTexture.Width / Columns;
             int height = SpriteTexture.Height / Rows;

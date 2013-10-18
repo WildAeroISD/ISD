@@ -33,9 +33,12 @@
       <Name>Player</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
+      <Parameters>
+        <Data Key="ColorKeyColor">0, 0, 0, 255</Data>
+      </Parameters>
       <Options>None</Options>
       <Output>\\ctstudent2\studentusers\100281608\Desktop\GitHub\ISD\ItalianStickDudes\ItalianStickDudes\ItalianStickDudes\bin\x86\Debug\Content\Player.xnb</Output>
-      <Time>2013-10-18T22:59:51.9572981+01:00</Time>
+      <Time>2013-10-18T23:18:40.4161509+01:00</Time>
     </Item>
     <BuildSuccessful>true</BuildSuccessful>
     <Settings>

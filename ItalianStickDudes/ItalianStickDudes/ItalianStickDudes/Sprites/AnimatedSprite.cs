@@ -11,18 +11,24 @@ namespace ItalianStickDudes
 {
     class AnimatedSprite : ISprite
     {
+        protected struct AnimationInfo
+        {
+            public string animationName;
+            public int startFrame, endFrame;
+            public long timeStep;
+        };
+
         protected Vector2 Position;
         protected Texture2D SpriteTexture;
+
+        protected Dictionary<string, AnimationInfo> Animations;
+        protected AnimationInfo CurrentAnimaion;
 
         protected int Rows;
         protected int Columns;
         protected int TotalFrames;
-
-        protected int StartFrame;
         protected int CurrentFrame;
-        protected int EndFrame;
 
-        protected long TimeStep;
         protected Stopwatch AnimationTimer;
 
         protected bool Flip;
@@ -31,11 +37,9 @@ namespace ItalianStickDudes
         {
             Rows = 0;
             Columns = 0;
-            TotalFrames = 0;
-            CurrentFrame = 0;
-            EndFrame = 0;
-            TimeStep = 0;
             AnimationTimer = new Stopwatch();
+            Animations = new Dictionary<string, AnimationInfo>();
+            CurrentAnimaion = new AnimationInfo();
 
             Flip = false;
         }
@@ -53,29 +57,42 @@ namespace ItalianStickDudes
             TotalFrames = rows * cols;
         }
 
+        public void AddAnimation(string name, int startFrame, int endFrame, long timeLength)
+        {
+            AnimationInfo info = new AnimationInfo();
+            info.animationName = name;
+            info.startFrame = startFrame;
+            info.endFrame = endFrame;
+            int numFrames = endFrame - startFrame;
+            info.timeStep = timeLength / numFrames;
+            Animations.Add(name, info);
+        }
+
         public virtual void Update(GameTime gameTime)
         {
 
-            if (AnimationTimer.ElapsedMilliseconds >= TimeStep)
+            if (AnimationTimer.ElapsedMilliseconds >= CurrentAnimaion.timeStep)
             {
                 CurrentFrame++;
                 AnimationTimer.Restart();
             }
 
-            if (CurrentFrame == EndFrame)
-                CurrentFrame = StartFrame;
+            if (CurrentFrame == CurrentAnimaion.endFrame)
+                CurrentFrame = CurrentAnimaion.startFrame;
 
         }
 
-        public virtual void PlayAnimation(int startFrame, int endFrame, long timeLength)
+        public virtual void PlayAnimation(string name)
         {
-            StartFrame = startFrame;
-            CurrentFrame = StartFrame;
-            EndFrame = endFrame;
-
-            int numFrames = endFrame - startFrame;
-            TimeStep = timeLength / numFrames;
-            AnimationTimer.Restart();
+            if (CurrentAnimaion.animationName != name)
+            {
+                if (Animations.ContainsKey(name))
+                {
+                    CurrentAnimaion = Animations[name];
+                    CurrentFrame = CurrentAnimaion.startFrame;
+                    AnimationTimer.Restart();
+                }
+            }
         }
 
         public virtual void Draw(SpriteBatch spriteBatch)
