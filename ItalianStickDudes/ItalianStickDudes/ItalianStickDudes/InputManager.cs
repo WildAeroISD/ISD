@@ -28,7 +28,11 @@ namespace ItalianStickDudes
         public void Update()
         {
             PreviousKeyboardState = CurrentKeyboardState;
-            PreviousGamePadStates = CurrentGamePadStates;
+
+            for (int i = 0; i < 4; i++)
+            {
+                PreviousGamePadStates[i] = CurrentGamePadStates[i];
+            }
 
             CurrentKeyboardState = Keyboard.GetState();
             CurrentGamePadStates[0] = GamePad.GetState(PlayerIndex.One);
@@ -57,11 +61,15 @@ namespace ItalianStickDudes
             return PreviousGamePadStates[index];
         }
 
-        public bool IfAnyPlayerPressed(Buttons button)
+        public bool AnyPlayerPressed(Buttons button)
         {
             for (int i = 0; i < 4; i++)
             {
-                return true;
+                if (CurrentGamePadStates[i].IsButtonDown(button) && 
+                    PreviousGamePadStates[i].IsButtonUp(button))
+                {
+                    return true;
+                }
             }
 
             return false;

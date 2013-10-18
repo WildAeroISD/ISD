@@ -1,2 +1,3 @@
 Content\LoadingPlaceHolder.xnb
 Content\MenuPlaceHolder.xnb
+Content\DebugFont.xnb

@@ -15,6 +15,8 @@ namespace ItalianStickDudes
         public InputManager Input;
         private bool Paused;
 
+        public SpriteFont font;
+
         public PlayingState()
         {
             Paused = false;
@@ -23,22 +25,32 @@ namespace ItalianStickDudes
 
         public virtual void Initialize()
         {
-            
+            Player playerone = new Player();
         }
 
         public virtual void Update(GameTime gameTime)
         {
             Input.Update();
-
             if (!Paused)
             {
-
+                if(Input.AnyPlayerPressed(Buttons.Start))
+                    Paused = true;
             }
+            else
+            {
+                if(Input.AnyPlayerPressed(Buttons.Start))
+                    Paused = false;
+            }            
         }
 
         public virtual void Draw(SpriteBatch spriteBatch)
         {
-            
+            spriteBatch.Begin();
+            if (Paused)
+            {
+                spriteBatch.DrawString(font, "PAUSED!", new Vector2(0, 0), Color.Black);
+            }
+            spriteBatch.End();
         }
 
         public virtual void End()

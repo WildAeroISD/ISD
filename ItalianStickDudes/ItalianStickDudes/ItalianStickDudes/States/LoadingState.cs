@@ -29,6 +29,7 @@ namespace ItalianStickDudes
         {
             if (HasDrawn)
             {
+                PlayState.font = Content.Load<SpriteFont>("DebugFont");
                 DoneLoading = true;
             }
         }

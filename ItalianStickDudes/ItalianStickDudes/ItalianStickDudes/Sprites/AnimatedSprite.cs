@@ -11,25 +11,25 @@ namespace ItalianStickDudes
 {
     class AnimatedSprite : ISprite
     {
-        private Vector2 Position;
-        private Texture2D Texture;
+        protected Vector2 Position;
+        protected Texture2D Texture;
 
-        private int Rows;
-        private int Columns;
-        private int TotalFrames;
+        protected int Rows;
+        protected int Columns;
+        protected int TotalFrames;
 
-        private int StartFrame;
-        private int CurrentFrame;
-        private int EndFrame;
+        protected int StartFrame;
+        protected int CurrentFrame;
+        protected int EndFrame;
 
-        private long TimeStep;
-        private Stopwatch AnimationTimer;
+        protected long TimeStep;
+        protected Stopwatch AnimationTimer;
 
-        public AnimatedSprite(int rows, int cols)
+        public AnimatedSprite()
         {
-            Rows = rows;
-            Columns = cols;
-            TotalFrames = rows * cols;
+            Rows = 0;
+            Columns = 0;
+            TotalFrames = 0;
             CurrentFrame = 0;
             EndFrame = 0;
             TimeStep = 0;
@@ -40,6 +40,13 @@ namespace ItalianStickDudes
         {
             Texture = texture;
             Position = position;
+        }
+
+        public virtual void InitializeAnimation(int rows, int cols)
+        {
+            Rows = rows;
+            Columns = cols;
+            TotalFrames = rows * cols;
         }
 
         public virtual void Update(GameTime gameTime)
