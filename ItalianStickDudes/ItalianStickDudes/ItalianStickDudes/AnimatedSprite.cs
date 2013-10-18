@@ -22,30 +22,49 @@ namespace ItalianStickDudes
         private int CurrentFrame;
         private int EndFrame;
 
-        public AnimatedSprite(Texture2D texture, Vector2 position, int rows, int cols)
+        private long TimeStep;
+        private Stopwatch AnimationTimer;
+
+        public AnimatedSprite(int rows, int cols)
         {
-            Texture = texture;
-            Position = position;
             Rows = rows;
             Columns = cols;
             TotalFrames = rows * cols;
             CurrentFrame = 0;
             EndFrame = 0;
+            TimeStep = 0;
+            AnimationTimer = new Stopwatch();
+        }
+
+        public virtual void Initialize(Texture2D texture, Vector2 position)
+        {
+            Texture = texture;
+            Position = position;
         }
 
         public virtual void Update(GameTime gameTime)
         {
-            CurrentFrame++;
+
+            if (AnimationTimer.ElapsedMilliseconds >= TimeStep)
+            {
+                CurrentFrame++;
+                AnimationTimer.Restart();
+            }
+
             if (CurrentFrame == EndFrame)
                 CurrentFrame = StartFrame;
 
         }
 
-        public virtual void PlayAnimation(int startFrame, int endFrame)
+        public virtual void PlayAnimation(int startFrame, int endFrame, long timeLength)
         {
             StartFrame = startFrame;
             CurrentFrame = StartFrame;
             EndFrame = endFrame;
+
+            int numFrames = endFrame - startFrame;
+            TimeStep = timeLength / numFrames;
+            AnimationTimer.Restart();
         }
 
         public virtual void Draw(SpriteBatch spriteBatch)

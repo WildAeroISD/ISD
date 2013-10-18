@@ -19,7 +19,11 @@ namespace ItalianStickDudes
 
         public void AddNewSprite(Texture2D texture, Vector2 position)
         {
-            
+            AnimatedSprite sprite = new AnimatedSprite(5, 5);
+            sprite.Initialize(texture, position);
+            sprite.PlayAnimation(0, 25, 2000);
+
+            SpriteList.Add(sprite);
            
         }
 

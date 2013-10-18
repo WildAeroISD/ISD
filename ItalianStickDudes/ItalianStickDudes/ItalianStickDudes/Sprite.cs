@@ -28,11 +28,5 @@ namespace ItalianStickDudes
         {
             spriteBatch.Draw(Texture, Position, Color.White);
         }
-
-        public virtual void Shutdown()
-        {
-
-        }
-
     }
 }

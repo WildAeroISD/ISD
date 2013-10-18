@@ -13,6 +13,5 @@ namespace ItalianStickDudes
         void Initialize(Texture2D texture, Vector2 position);
         void Update(GameTime gameTime);
         void Draw(SpriteBatch spriteBatch);
-        void Shutdown();
     }
 }

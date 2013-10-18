@@ -2,13 +2,13 @@
 <XnaContent xmlns:Pipeline="Microsoft.Xna.Framework.Content.Pipeline">
   <Asset Type="Pipeline:BuildItemCollection">
     <Item>
-      <Source>test.png</Source>
+      <Source>test.bmp</Source>
       <Name>test</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
       <Output>\\ctstudent2\studentusers\100281608\Desktop\GitHub\ISD\ItalianStickDudes\ItalianStickDudes\ItalianStickDudes\bin\x86\Debug\Content\test.xnb</Output>
-      <Time>2013-10-18T17:47:18.5150031+01:00</Time>
+      <Time>2013-10-18T18:49:36.4064908+01:00</Time>
     </Item>
     <BuildSuccessful>true</BuildSuccessful>
     <Settings>

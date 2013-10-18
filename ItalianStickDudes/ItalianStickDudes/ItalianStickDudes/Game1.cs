@@ -24,7 +24,12 @@ namespace ItalianStickDudes
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
+            graphics.PreferredBackBufferWidth = 1280;
+            graphics.PreferredBackBufferHeight = 720;
+            graphics.IsFullScreen = false;
+
             Content.RootDirectory = "Content";
+
         }
 
         /// <summary>
@@ -36,6 +41,7 @@ namespace ItalianStickDudes
         protected override void Initialize()
         {
             spriteManager = new SpriteManager();
+
             base.Initialize();
         }
 
@@ -48,7 +54,7 @@ namespace ItalianStickDudes
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
             Texture2D tex = Content.Load<Texture2D>("test");
-
+            spriteManager.AddNewSprite(tex, new Vector2(10, 20));
         }
 
         /// <summary>
