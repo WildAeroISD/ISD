@@ -19,11 +19,8 @@ namespace ItalianStickDudes
 
         public void AddNewSprite(Texture2D texture, Vector2 position)
         {
-            Sprite sprite = new Sprite();
-            sprite.Initialize(texture, position);
             
-
-            SpriteList.Add(sprite);
+           
         }
 
         public void UpdateSprites(GameTime gameTime)
