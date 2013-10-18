@@ -12,7 +12,7 @@ namespace ItalianStickDudes
     class AnimatedSprite : ISprite
     {
         protected Vector2 Position;
-        protected Texture2D Texture;
+        protected Texture2D SpriteTexture;
 
         protected int Rows;
         protected int Columns;
@@ -38,7 +38,7 @@ namespace ItalianStickDudes
 
         public virtual void Initialize(Texture2D texture, Vector2 position)
         {
-            Texture = texture;
+            SpriteTexture = texture;
             Position = position;
         }
 
@@ -76,15 +76,15 @@ namespace ItalianStickDudes
 
         public virtual void Draw(SpriteBatch spriteBatch)
         {
-            int width = Texture.Width / Columns;
-            int height = Texture.Height / Rows;
+            int width = SpriteTexture.Width / Columns;
+            int height = SpriteTexture.Height / Rows;
             int row = (int)((float)CurrentFrame / (float)Columns);
             int col = CurrentFrame % Columns;
 
             Rectangle sourceRectangle = new Rectangle(width * col, height * row, width, height);
             Rectangle destinationRectangle = new Rectangle((int)Position.X, (int)Position.Y, width, height);
 
-            spriteBatch.Draw(Texture, destinationRectangle, sourceRectangle, Color.White);
+            spriteBatch.Draw(SpriteTexture, destinationRectangle, sourceRectangle, Color.White);
         }
     }
 }

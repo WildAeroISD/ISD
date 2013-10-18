@@ -53,12 +53,12 @@ namespace ItalianStickDudes
 
         public GamePadState GetCurrentGamePadState(int index)
         {
-            return CurrentGamePadStates[index];
+            return CurrentGamePadStates[index - 1];
         }
 
         public GamePadState GetPreviousGamePadState(int index)
         {
-            return PreviousGamePadStates[index];
+            return PreviousGamePadStates[index - 1];
         }
 
         public bool AnyPlayerPressed(Buttons button)

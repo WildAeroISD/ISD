@@ -110,6 +110,7 @@
     <Compile Include="InputManager.cs" />
     <Compile Include="Sprites\AnimatedSprite.cs" />
     <Compile Include="Sprites\ISprite.cs" />
+    <Compile Include="Sprites\Player.cs" />
     <Compile Include="States\LoadingState.cs" />
     <Compile Include="States\MenuState.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

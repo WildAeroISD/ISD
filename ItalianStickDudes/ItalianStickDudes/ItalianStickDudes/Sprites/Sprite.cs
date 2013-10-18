@@ -10,12 +10,12 @@ namespace ItalianStickDudes
 {
     class Sprite : ISprite
     {
-        private Texture2D Texture;
+        private Texture2D SpriteTexture;
         private Vector2 Position;
 
         public virtual void Initialize(Texture2D texture, Vector2 position)
         {
-            Texture = texture;
+            SpriteTexture = texture;
             Position = position;
         }
 
@@ -26,7 +26,7 @@ namespace ItalianStickDudes
 
         public virtual void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(Texture, Position, Color.White);
+            spriteBatch.Draw(SpriteTexture, Position, Color.White);
         }
     }
 }

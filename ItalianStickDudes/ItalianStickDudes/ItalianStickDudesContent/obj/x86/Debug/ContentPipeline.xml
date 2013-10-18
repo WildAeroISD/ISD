@@ -26,7 +26,16 @@
       <Processor>FontDescriptionProcessor</Processor>
       <Options>None</Options>
       <Output>\\ctstudent2\studentusers\100281608\Desktop\GitHub\ISD\ItalianStickDudes\ItalianStickDudes\ItalianStickDudes\bin\x86\Debug\Content\DebugFont.xnb</Output>
-      <Time>2013-10-18T21:10:50.9682458+01:00</Time>
+      <Time>2013-10-18T21:33:42.8952009+01:00</Time>
+    </Item>
+    <Item>
+      <Source>Player.png</Source>
+      <Name>Player</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>\\ctstudent2\studentusers\100281608\Desktop\GitHub\ISD\ItalianStickDudes\ItalianStickDudes\ItalianStickDudes\bin\x86\Debug\Content\Player.xnb</Output>
+      <Time>2013-10-18T22:13:16.146745+01:00</Time>
     </Item>
     <BuildSuccessful>true</BuildSuccessful>
     <Settings>

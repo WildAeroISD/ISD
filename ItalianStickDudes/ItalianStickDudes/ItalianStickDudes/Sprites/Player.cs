@@ -12,7 +12,6 @@ namespace ItalianStickDudes
     class Player : AnimatedSprite
     {
         private int PlayerNumber;
-
         private Vector2 Velocity;
 
         public Player()
@@ -20,18 +19,26 @@ namespace ItalianStickDudes
 
         }
 
-        public void Initialize(int WhichPlayer, Vector2 StartPosition)
+        public virtual void Initialize(Texture2D playerTexture, int WhichPlayer, Vector2 StartPosition)
         {
             Position = StartPosition;
+            SpriteTexture = playerTexture;
             PlayerNumber = WhichPlayer;
-            this.InitializeAnimation(0, 0);
+            
+            InitializeAnimation(1, 2);
+            PlayAnimation(0, 2, 800);
         }
 
-        public void Update(GameTime gameTime, InputManager Input)
+        public virtual void Update(GameTime gameTime, InputManager Input)
         {
+            base.Update(gameTime);
             GamePadState gamePad = Input.GetCurrentGamePadState(PlayerNumber);
 
-            Velocity.X += gamePad.ThumbSticks.Right * 0.10f;
+         
+            Velocity.X += gamePad.ThumbSticks.Left.X;
+            
+
+            Position += Velocity;
         }
     }
 }

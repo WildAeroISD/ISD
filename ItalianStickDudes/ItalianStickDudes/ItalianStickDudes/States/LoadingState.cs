@@ -30,6 +30,11 @@ namespace ItalianStickDudes
             if (HasDrawn)
             {
                 PlayState.font = Content.Load<SpriteFont>("DebugFont");
+
+                Texture2D tex = Content.Load<Texture2D>("Player");
+                if (!PlayState.AddNewTexture("Player", tex))
+                    tex.Dispose();
+
                 DoneLoading = true;
             }
         }

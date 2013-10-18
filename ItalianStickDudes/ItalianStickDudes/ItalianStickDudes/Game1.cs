@@ -57,8 +57,7 @@ namespace ItalianStickDudes
             
             MainMenu = new MenuState();
             LoadState = new LoadingState();
-            PlayState = new PlayingState();
-            
+            PlayState = new PlayingState();            
             
             base.Initialize();
         }
@@ -72,6 +71,7 @@ namespace ItalianStickDudes
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
             Texture2D tex = Content.Load<Texture2D>("MenuPlaceHolder");
+
             MainMenu.Initialize(tex);
         }
 
@@ -120,7 +120,10 @@ namespace ItalianStickDudes
                     {
                         LoadState.Load("test");
                         if (LoadState.DoneLoading)
+                        {
                             CurrentState = GameStates.PLAYING;
+                            PlayState.Initialize();
+                        }
                     } break;
 
                 case GameStates.END_GAME:
@@ -141,6 +144,8 @@ namespace ItalianStickDudes
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
+
+            
 
             switch (CurrentState)
             {
@@ -164,7 +169,6 @@ namespace ItalianStickDudes
 
                     } break;
             }
-
             base.Draw(gameTime);
         }
     }
