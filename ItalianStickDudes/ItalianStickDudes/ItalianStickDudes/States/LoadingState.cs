@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-
+using System.IO;
+using System.Runtime.Serialization;
+using System.Runtime.Serialization.Formatters.Binary;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
@@ -34,6 +36,20 @@ namespace ItalianStickDudes
                 Texture2D tex = Content.Load<Texture2D>("Player");
                 if (!PlayState.AddNewTexture("Player", tex))
                     tex.Dispose();
+
+                Stream stream = File.Open("Maps\\Earlytest.entm", FileMode.Open);
+                BinaryFormatter bFormatter = new BinaryFormatter();
+                Map map = (Map)bFormatter.Deserialize(stream);
+                stream.Close();
+                //Build list...
+                for (int x = 0; x < map.MapTiles.Count; x++)
+                {
+                    Sprite sp = new Sprite();
+                    Texture2D t = Content.Load<Texture2D>(map.MapTiles[x].TextureName);
+                    PlayState.AddNewTexture(map.MapTiles[x].TextureName, t);
+                    sp.Initialize(t, map.MapTiles[x].Position, map.MapTiles[x].Depth);
+                    PlayState.MapTiles.Add(sp);
+                }
 
                 DoneLoading = true;
             }

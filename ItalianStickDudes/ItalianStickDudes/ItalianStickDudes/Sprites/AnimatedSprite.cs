@@ -19,7 +19,7 @@ namespace ItalianStickDudes
         };
 
         public Vector2 Position;
-        protected Texture2D SpriteTexture;
+        public Texture2D SpriteTexture;
         protected float Rotation;
         protected float Depth;
 
@@ -32,6 +32,8 @@ namespace ItalianStickDudes
         protected int CurrentFrame;
 
         protected Stopwatch AnimationTimer;
+
+        public Rectangle BoundingBox;
 
         protected bool Flip;
 
@@ -46,6 +48,8 @@ namespace ItalianStickDudes
             Depth = 1.0f;
 
             Flip = false;
+
+            BoundingBox = new Rectangle(0, 0, 0, 0);
         }
 
         public virtual void Initialize(Texture2D texture, Vector2 position, float depth)
@@ -53,6 +57,7 @@ namespace ItalianStickDudes
             SpriteTexture = texture;
             Position = position;
             Depth = depth;
+            BoundingBox = new Rectangle((int)position.X, (int)position.Y, texture.Width, texture.Height);
         }
 
         public virtual void InitializeAnimation(int rows, int cols)
@@ -60,6 +65,10 @@ namespace ItalianStickDudes
             Rows = rows;
             Columns = cols;
             TotalFrames = rows * cols;
+
+            int width = SpriteTexture.Width / Columns;
+            int height = SpriteTexture.Height / Rows;
+            BoundingBox = new Rectangle((int)Position.X, (int)Position.Y, width, height);
         }
 
         public void AddAnimation(string name, int startFrame, int endFrame, long timeLength)

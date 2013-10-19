@@ -113,6 +113,7 @@
     <Compile Include="Sprites\AnimatedSprite.cs" />
     <Compile Include="Sprites\ISprite.cs" />
     <Compile Include="Sprites\Player.cs" />
+    <Compile Include="States\Collision.cs" />
     <Compile Include="States\EditorState.cs" />
     <Compile Include="States\LoadingState.cs" />
     <Compile Include="States\MenuState.cs" />

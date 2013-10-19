@@ -8,21 +8,43 @@ using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Graphics;
 
 namespace ItalianStickDudes
-{   
+{
+    public struct PlayerCollisionState
+    {
+        public bool moveLeft;
+        public bool moveRight;
+        public bool moveUp;
+        public bool moveDown;
+    }
+
+    public struct MovementState
+    {
+        public bool left, right;
+    }
+
     class Player : AnimatedSprite
     {
         private int PlayerNumber;
         private Vector2 Velocity;
 
-        private bool Running = false;
-        private bool Falling = false;
+        public PlayerCollisionState collisionState = new PlayerCollisionState();
+        private MovementState movementState = new MovementState();
 
-        private bool Jumping;
-        private Vector2 JumpPosition;
+        private bool lastDireciton = false;
+        public bool OnGround = false;
+        public bool Jumping = false;
+        public bool Falling = true;
+        private float JumpOffset = 0.0f;
 
         public Player()
         {
+            collisionState.moveDown = true;
+            collisionState.moveUp = true;
+            collisionState.moveLeft = true;
+            collisionState.moveRight = true;
 
+            movementState.left = false;
+            movementState.right = false;
         }
 
         public virtual void Initialize(Texture2D playerTexture, int WhichPlayer, Vector2 StartPosition)
@@ -30,13 +52,11 @@ namespace ItalianStickDudes
             Position = StartPosition;
             SpriteTexture = playerTexture;
             PlayerNumber = WhichPlayer;
-
-            Jumping = false;
-            JumpPosition = Vector2.Zero;
             
             InitializeAnimation(5, 8);
             AddAnimation("idle", 0, 2, 800);
-            AddAnimation("running", 2, 8, 600);
+            AddAnimation("running", 2, 9, 600);
+            AddAnimation("jump", 10, 16, 600);
             PlayAnimation("idle");
         }
 
@@ -45,89 +65,117 @@ namespace ItalianStickDudes
             base.Update(gameTime);
             GamePadState gamePad = Input.GetCurrentGamePadState(PlayerNumber);
 
-            float amount = gamePad.ThumbSticks.Left.X;
-
-            if(amount > 0.0f)
-                Flip = false;
-            else if(amount < 0.0f)
-                Flip = true;
-
-            if (amount == 0.0f)
+            //Check input
+            if (gamePad.ThumbSticks.Left.X < 0.0f)
             {
-                if (Velocity.X > 0.6f)
-                {
-                    Velocity.X -= 0.6f;
-                    Running = true;
-                }
-                else if (Velocity.X < -0.6)
-                {
-                    Running = true;
-                    Velocity.X += 0.6f;
-                }
-
-                if (Velocity.X < 0.6 && Velocity.X > -0.6)
-                {
-                    Velocity.X = 0.0f;
-                    Running = false;
-                }
+                movementState.right = false;
+                movementState.left = true;
+            }
+            else if (gamePad.ThumbSticks.Left.X > 0.0f)
+            {
+                movementState.left = false;
+                movementState.right = true;
             }
             else
             {
-                Velocity.X += amount;
-                Running = true;
+                movementState.right = false;
+                movementState.left = false;
             }
 
-            if (Running)
+            if (movementState.right)
+            {
                 PlayAnimation("running");
-            else if(!Running)
-                PlayAnimation("idle");
-
-            if (!Jumping && !Falling)
+                
+                lastDireciton = false;
+                Velocity.X += 1.0f;
+            }
+            else if (movementState.left)
             {
-                if (Input.GetCurrentGamePadState(PlayerNumber).Buttons.A == ButtonState.Pressed)
-                {
-                    JumpPosition = Position;
-                    Jumping = true;
-                }
-
+                PlayAnimation("running");
+                lastDireciton = true;
+                Velocity.X -= 1.0f;
+    
             }
             else
             {
-                if(JumpPosition.Y - Position.Y > 300)
-                {
-                    Falling = true;
-                    Jumping = false;
-                }
+                if (Velocity.X > 0.0f)
+                    Velocity.X -= 0.6f;
+                if (Velocity.X < 0.0f)
+                    Velocity.X += 0.6f;
 
-                if (!Falling)
+                PlayAnimation("idle");
+            }
+
+            //Clip velocity
+            if (Velocity.X > -0.6f && Velocity.X < 0.6f)
+                Velocity.X = 0.0f;
+
+            else if (Velocity.X > 20.0f)
+                Velocity.X = 20.0f;
+            else if (Velocity.X < -20.0f)
+                Velocity.X = -20.0f;
+
+            //Update Position
+            if (Velocity.X > 0.0f && collisionState.moveRight)
+                Position.X += Velocity.X;
+            else if (Velocity.X < 0.0f && collisionState.moveLeft)
+                Position.X += Velocity.X;
+            else
+                Velocity.X = 0.0f;
+
+            
+            
+            if (!Jumping && OnGround)
+            {
+                if (gamePad.Buttons.A == ButtonState.Pressed)
                 {
-                    Velocity.Y -= 20.0f;
+                    Jumping = true;
+                    OnGround = false;
+                    JumpOffset = Position.Y - 300.0f;
+                }
+            }
+            else if (Jumping)
+            {
+                if (Position.Y < JumpOffset)
+                {
+                    Jumping = false;
+                    Falling = true;
+                    Velocity.Y = 0.0f;
                 }
                 else
                 {
-                    Velocity.Y += 15.0f;
-
-                    if(Position.Y >= JumpPosition.Y)
+                    if (collisionState.moveUp)
+                        Velocity.Y -= 5.0f;
+                    else
                     {
-                        Falling = false;
-                        Position.Y = JumpPosition.Y;
                         Velocity.Y = 0.0f;
+                        Jumping = false;
+                        Falling = true;
                     }
                 }
             }
 
-            if (Velocity.X >= 20.0f)
-                Velocity.X = 20.0f;
-            else if (Velocity.X <= -20.0f)
-                Velocity.X = -20.0f;
 
-            if (Velocity.Y >= 20.0f)
-                Velocity.Y = 20.0f;
-            else if (Velocity.Y <= -20.0f)
-                Velocity.Y = -20.0f;
+            if (collisionState.moveDown)
+            {
+                OnGround = false;
+            }
 
-            
-            Position += Velocity;
+            if (!collisionState.moveDown)
+                Falling = false;
+
+            Position.Y += Velocity.Y;
+
+            if (!OnGround && !Jumping)
+                Position.Y += 9.4f;
+          
+            BoundingBox.X = (int)Position.X;
+            BoundingBox.Y = (int)Position.Y;
+
+            collisionState.moveDown = true;
+            collisionState.moveUp = true;
+            collisionState.moveLeft = true;
+            collisionState.moveRight = true;
         }
 
         public virtual void Draw(SpriteBatch spriteBatch, Matrix transform)
@@ -143,7 +191,8 @@ namespace ItalianStickDudes
             spriteBatch.Begin(SpriteSortMode.BackToFront,
                 BlendState.AlphaBlend,
                 null, null, null, null, transform);
-            if(Flip)
+
+            if(lastDireciton)
                 spriteBatch.Draw(SpriteTexture, destinationRectangle, sourceRectangle, Color.White, 0, new Vector2(0, 0), SpriteEffects.FlipHorizontally, 0.4f);
             else
                 spriteBatch.Draw(SpriteTexture, destinationRectangle, sourceRectangle, Color.White, 0, new Vector2(0, 0), SpriteEffects.None, 0.4f);
