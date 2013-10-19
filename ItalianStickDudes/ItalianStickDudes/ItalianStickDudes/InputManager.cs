@@ -13,6 +13,9 @@ namespace ItalianStickDudes
         private KeyboardState PreviousKeyboardState;
         private KeyboardState CurrentKeyboardState;
 
+        private MouseState CurrentMouseState;
+        private MouseState PreviousMouseState;
+
         private GamePadState[] PreviousGamePadStates;
         private GamePadState[] CurrentGamePadStates;
 
@@ -23,16 +26,22 @@ namespace ItalianStickDudes
 
             PreviousKeyboardState = new KeyboardState();
             CurrentKeyboardState = new KeyboardState();
+
+            CurrentMouseState = new MouseState();
+            PreviousMouseState = new MouseState();
         }
 
         public void Update()
         {
             PreviousKeyboardState = CurrentKeyboardState;
+            PreviousMouseState = CurrentMouseState;
 
             for (int i = 0; i < 4; i++)
             {
                 PreviousGamePadStates[i] = CurrentGamePadStates[i];
             }
+
+            CurrentMouseState = Mouse.GetState();
 
             CurrentKeyboardState = Keyboard.GetState();
             CurrentGamePadStates[0] = GamePad.GetState(PlayerIndex.One);
@@ -49,6 +58,26 @@ namespace ItalianStickDudes
         public KeyboardState GetPreviousKeyboardState()
         {
             return PreviousKeyboardState;
+        }
+
+        public MouseState GetCurrentMouseState()
+        {
+            return CurrentMouseState;
+        }
+
+        public MouseState GetPreviousMouseState()
+        {
+            return PreviousMouseState;
+        }
+
+        public bool IsNewKeyDown(Keys key)
+        {
+            if(CurrentKeyboardState.IsKeyDown(key) &&
+                PreviousKeyboardState.IsKeyUp(key))
+            {
+                return true;
+            }
+            return false;
         }
 
         public GamePadState GetCurrentGamePadState(int index)
@@ -73,6 +102,44 @@ namespace ItalianStickDudes
             }
 
             return false;
+        }
+
+        public bool IsNewLeftMouseDown()
+        {
+            if (CurrentMouseState.LeftButton == ButtonState.Pressed &&
+                PreviousMouseState.LeftButton == ButtonState.Released)
+                return true;
+            return false;
+        }
+
+        public string GetInputString()
+        {
+            string str = "";
+
+            foreach (Keys key in CurrentKeyboardState.GetPressedKeys())
+            {
+                if (PreviousKeyboardState.IsKeyUp(key))
+                {
+                    if (key != Keys.LeftShift && key != Keys.RightShift && key != Keys.LeftControl
+                        && key != Keys.RightControl && key != Keys.RightAlt && key != Keys.LeftAlt
+                         && key != Keys.Back)
+                    {
+                        if (key == Keys.Space)
+                        {
+                            str += " ";
+                        }
+                        else
+                        {
+                            if (CurrentKeyboardState.IsKeyDown(Keys.LeftShift))
+                                str += key.ToString();
+                            else
+                                str += key.ToString().ToLower();
+                        }
+                    }
+                }
+            }
+
+            return str;
         }
     }
 }

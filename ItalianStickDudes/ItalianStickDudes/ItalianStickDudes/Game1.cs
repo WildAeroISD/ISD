@@ -22,6 +22,7 @@ namespace ItalianStickDudes
         MenuState MainMenu;
         LoadingState LoadState;
         PlayingState PlayState;
+        EditorState Editor;
 
         enum GameStates
         {
@@ -57,7 +58,8 @@ namespace ItalianStickDudes
             
             MainMenu = new MenuState();
             LoadState = new LoadingState();
-            PlayState = new PlayingState();            
+            PlayState = new PlayingState();
+            Editor = new EditorState();
             
             base.Initialize();
         }
@@ -113,6 +115,12 @@ namespace ItalianStickDudes
                             CurrentState = GameStates.LOADING;
                             LoadState.Initialize(PlayState, Content);
                         }
+                        else if (MainMenu.GoEditor)
+                        {
+                            CurrentState = GameStates.EDITOR;
+                            this.IsMouseVisible = true;
+                            Editor.Initialize(Content);
+                        }
 
                     } break;
 
@@ -122,8 +130,20 @@ namespace ItalianStickDudes
                         if (LoadState.DoneLoading)
                         {
                             CurrentState = GameStates.PLAYING;
-                            PlayState.Initialize();
+                            PlayState.Initialize(2);
                         }
+                    } break;
+
+                case GameStates.EDITOR:
+                    {
+                        Editor.Update(gameTime);
+
+                        if (Editor.GoMenu)
+                        {
+                            CurrentState = GameStates.MENU;
+                            this.IsMouseVisible = false;
+                        }
+
                     } break;
 
                 case GameStates.END_GAME:
@@ -145,8 +165,6 @@ namespace ItalianStickDudes
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
-            
-
             switch (CurrentState)
             {
                 case GameStates.MENU:
@@ -167,6 +185,11 @@ namespace ItalianStickDudes
                 case GameStates.END_GAME:
                     {
 
+                    } break;
+
+                case GameStates.EDITOR:
+                    {
+                        Editor.Draw(spriteBatch);
                     } break;
             }
             base.Draw(gameTime);

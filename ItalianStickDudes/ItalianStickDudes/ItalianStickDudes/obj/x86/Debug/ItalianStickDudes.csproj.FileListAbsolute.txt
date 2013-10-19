@@ -8,3 +8,5 @@
 \\ctstudent2\studentusers\100281608\Desktop\GitHub\ISD\ItalianStickDudes\ItalianStickDudes\ItalianStickDudes\bin\x86\Debug\Content\MenuPlaceHolder.xnb
 \\ctstudent2\studentusers\100281608\Desktop\GitHub\ISD\ItalianStickDudes\ItalianStickDudes\ItalianStickDudes\bin\x86\Debug\Content\DebugFont.xnb
 \\ctstudent2\studentusers\100281608\Desktop\GitHub\ISD\ItalianStickDudes\ItalianStickDudes\ItalianStickDudes\bin\x86\Debug\Content\Player.xnb
+\\ctstudent2\studentusers\100281608\Desktop\GitHub\ISD\ItalianStickDudes\ItalianStickDudes\ItalianStickDudes\bin\x86\Debug\Content\test.xnb
+\\ctstudent2\studentusers\100281608\Desktop\GitHub\ISD\ItalianStickDudes\ItalianStickDudes\ItalianStickDudes\bin\x86\Debug\Content\test2.xnb

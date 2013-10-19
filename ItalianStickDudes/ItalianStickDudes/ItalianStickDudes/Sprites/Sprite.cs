@@ -10,13 +10,23 @@ namespace ItalianStickDudes
 {
     class Sprite : ISprite
     {
-        private Texture2D SpriteTexture;
-        private Vector2 Position;
+        public Texture2D SpriteTexture;
+        protected Vector2 Position;
+        protected float Rotation;
+        protected float Depth;
 
-        public virtual void Initialize(Texture2D texture, Vector2 position)
+        public Sprite()
+        {
+            Position = new Vector2(0, 0);
+            Rotation = 0.0f;
+            Depth = 1.0f;
+        }
+
+        public virtual void Initialize(Texture2D texture, Vector2 position, float depth)
         {
             SpriteTexture = texture;
             Position = position;
+            Depth = depth;
         }
 
         public virtual void Update(GameTime gameTime)
@@ -26,7 +36,12 @@ namespace ItalianStickDudes
 
         public virtual void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(SpriteTexture, Position, Color.White);
+            spriteBatch.Draw(SpriteTexture, Position, null, Color.White, Rotation, new Vector2(0, 0), 1.0f, SpriteEffects.None, Depth);
+        }
+
+        public void SetPosition(Vector2 pos)
+        {
+            Position = pos;
         }
     }
 }

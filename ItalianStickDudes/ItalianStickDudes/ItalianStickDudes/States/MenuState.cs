@@ -14,11 +14,13 @@ namespace ItalianStickDudes
 
         public bool ExitGame;
         public bool PlayGame;
+        public bool GoEditor;
 
         public virtual void Initialize(Texture2D image)
         {
             ExitGame = false;
             PlayGame = false;
+            GoEditor = false;
 
             MenuImage = image;
         }
@@ -30,6 +32,9 @@ namespace ItalianStickDudes
 
             if (playerOneState.Buttons.A == ButtonState.Pressed || keyboardState.IsKeyDown(Keys.Space))
                 PlayGame = true;
+
+            if (keyboardState.IsKeyDown(Keys.E))
+                GoEditor = true;
 
         }
 

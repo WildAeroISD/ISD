@@ -18,8 +18,10 @@ namespace ItalianStickDudes
             public long timeStep;
         };
 
-        protected Vector2 Position;
+        public Vector2 Position;
         protected Texture2D SpriteTexture;
+        protected float Rotation;
+        protected float Depth;
 
         protected Dictionary<string, AnimationInfo> Animations;
         protected AnimationInfo CurrentAnimaion;
@@ -40,14 +42,17 @@ namespace ItalianStickDudes
             AnimationTimer = new Stopwatch();
             Animations = new Dictionary<string, AnimationInfo>();
             CurrentAnimaion = new AnimationInfo();
+            Rotation = 0.0f;
+            Depth = 1.0f;
 
             Flip = false;
         }
 
-        public virtual void Initialize(Texture2D texture, Vector2 position)
+        public virtual void Initialize(Texture2D texture, Vector2 position, float depth)
         {
             SpriteTexture = texture;
             Position = position;
+            Depth = depth;
         }
 
         public virtual void InitializeAnimation(int rows, int cols)
@@ -105,7 +110,7 @@ namespace ItalianStickDudes
             Rectangle sourceRectangle = new Rectangle(width * col, height * row, width, height);
             Rectangle destinationRectangle = new Rectangle((int)Position.X, (int)Position.Y, width, height);
 
-            spriteBatch.Draw(SpriteTexture, destinationRectangle, sourceRectangle, Color.White);
+            spriteBatch.Draw(SpriteTexture, destinationRectangle, sourceRectangle, Color.White, Rotation, new Vector2(0, 0), SpriteEffects.None, Depth);
         }
     }
 }

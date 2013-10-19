@@ -109,9 +109,11 @@
   <ItemGroup>
     <Compile Include="Camera.cs" />
     <Compile Include="InputManager.cs" />
+    <Compile Include="Map.cs" />
     <Compile Include="Sprites\AnimatedSprite.cs" />
     <Compile Include="Sprites\ISprite.cs" />
     <Compile Include="Sprites\Player.cs" />
+    <Compile Include="States\EditorState.cs" />
     <Compile Include="States\LoadingState.cs" />
     <Compile Include="States\MenuState.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

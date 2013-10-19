@@ -10,7 +10,7 @@ namespace ItalianStickDudes
 {
     interface ISprite
     {
-        void Initialize(Texture2D texture, Vector2 position);
+        void Initialize(Texture2D texture, Vector2 position, float Depth);
         void Update(GameTime gameTime);
         void Draw(SpriteBatch spriteBatch);
     }

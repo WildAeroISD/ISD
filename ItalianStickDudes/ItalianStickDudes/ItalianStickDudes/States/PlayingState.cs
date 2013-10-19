@@ -12,37 +12,37 @@ namespace ItalianStickDudes
     class PlayingState
     {
 
-        public InputManager Input;
+        private InputManager Input;
         private bool Paused;
 
         private Camera camera;
 
-        public Player PlayerOne;
-        public Player PlayerTwo;
-        public Player PlayerThree;
+        private List<Player> Players;
 
         public SpriteFont font;
         private Dictionary<string, Texture2D> AvailableTextures;
+
+        private string FPSText;
 
         public PlayingState()
         {
             Paused = false;
             Input = new InputManager();
             camera = new Camera();
-
-            PlayerOne = new Player();
-            PlayerTwo = new Player();
-            PlayerThree = new Player();
-
+            Players = new List<Player>();
+            FPSText = "";
             AvailableTextures = new Dictionary<string, Texture2D>();
         }
 
-        public virtual void Initialize()
+        public void Initialize(int numOfPlayers)
         {
-            PlayerOne.Initialize(AvailableTextures["Player"], 1, new Vector2(100, 100));
-            PlayerTwo.Initialize(AvailableTextures["Player"], 2, new Vector2(200, 100));
-            PlayerThree.Initialize(AvailableTextures["Player"], 3, new Vector2(300, 100));
-            
+            if (numOfPlayers > 4)
+                numOfPlayers = 4;
+            for (int p = 0; p < numOfPlayers; p++)
+            {
+                Players.Add(new Player());
+                Players[p].Initialize(AvailableTextures["Player"], p + 1, new Vector2(0, 0));
+            }
         }
 
         public bool AddNewTexture(string name, Texture2D texture)
@@ -55,8 +55,9 @@ namespace ItalianStickDudes
             return true;
         }
 
-        public virtual void Update(GameTime gameTime)
+        public void Update(GameTime gameTime)
         {
+            FPSText = "FPS: " + (1 / gameTime.ElapsedGameTime.TotalSeconds);
             Input.Update();
 
             KeyboardState currentKeyboard = Input.GetCurrentKeyboardState();
@@ -76,9 +77,10 @@ namespace ItalianStickDudes
                 if(Input.AnyPlayerPressed(Buttons.Start))
                     Paused = true;
 
-                PlayerOne.Update(gameTime, Input);
-                PlayerThree.Update(gameTime, Input);
-                PlayerTwo.Update(gameTime, Input);
+                for (int p = 0; p < Players.Count; p++)
+                {
+                    Players[p].Update(gameTime, Input);
+                }
             }
             else
             {
@@ -87,7 +89,7 @@ namespace ItalianStickDudes
             }            
         }
 
-        public virtual void Draw(SpriteBatch spriteBatch)
+        public void Draw(SpriteBatch spriteBatch)
         {
             Matrix transform = camera.GetTransform();
 
@@ -96,11 +98,14 @@ namespace ItalianStickDudes
             {
                 spriteBatch.DrawString(font, "PAUSED!", new Vector2(0, 0), Color.Black);
             }
+
+            spriteBatch.DrawString(font, FPSText, new Vector2(0, 0), Color.Black);
             spriteBatch.End();
 
-            PlayerOne.Draw(spriteBatch, transform);
-            PlayerTwo.Draw(spriteBatch, transform);
-            PlayerThree.Draw(spriteBatch, transform);
+            for (int p = 0; p < Players.Count; p++)
+            {
+                Players[p].Draw(spriteBatch, transform);
+            }
         }
 
         public virtual void End()
