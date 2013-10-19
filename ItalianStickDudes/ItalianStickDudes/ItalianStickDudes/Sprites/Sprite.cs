@@ -15,11 +15,14 @@ namespace ItalianStickDudes
         protected float Rotation;
         protected float Depth;
 
+        public Rectangle BoundingBox;
         public Sprite()
         {
             Position = new Vector2(0, 0);
             Rotation = 0.0f;
             Depth = 1.0f;
+
+            BoundingBox = new Rectangle(0, 0, 0, 0);
         }
 
         public virtual void Initialize(Texture2D texture, Vector2 position, float depth)
@@ -27,6 +30,8 @@ namespace ItalianStickDudes
             SpriteTexture = texture;
             Position = position;
             Depth = depth;
+
+            BoundingBox = new Rectangle((int)position.X, (int)position.Y, texture.Width, texture.Height);
         }
 
         public virtual void Update(GameTime gameTime)

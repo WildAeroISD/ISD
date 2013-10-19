@@ -38,8 +38,8 @@ namespace ItalianStickDudes
         private int CurrentTexture;
         private float CurrentDepth;
 
-        private bool Selected;
-        private int SelectedIndex;
+        private bool BuildHoriz;
+        private int BuildAmount;
 
         public EditorState()
         {
@@ -48,7 +48,9 @@ namespace ItalianStickDudes
             LoadFile = false;
             GoMenu = false;
             FileLoadError = false;
-            Selected = false;
+
+            BuildHoriz = true;
+            BuildAmount = 1;
 
             InputString = "";
             Input = new InputManager();
@@ -59,8 +61,6 @@ namespace ItalianStickDudes
 
             CurrentTexture = 0;
             CurrentDepth = 1.0f;
-
-            SelectedIndex = 0;
         }
 
         public void Initialize(ContentManager Content)
@@ -68,13 +68,89 @@ namespace ItalianStickDudes
             this.Content = Content;
             font = Content.Load<SpriteFont>("DebugFont");
 
-            Texture2D tex = Content.Load<Texture2D>("test");
-            tex.Name = "test";
-            AvailableTextures.Add("test", tex);
+            Texture2D tex = Content.Load<Texture2D>("Background_Plain");
+            tex.Name = "Background_Plain";
+            AvailableTextures.Add("Background_Plain", tex);
 
-            tex = Content.Load<Texture2D>("test2");
-            tex.Name = "test2";
-            AvailableTextures.Add("test2", tex);
+            tex = Content.Load<Texture2D>("Background_Windowed");
+            tex.Name = "Background_Windowed";
+            AvailableTextures.Add("Background_Windowed", tex);
+
+            tex = Content.Load<Texture2D>("Foreground_Arch_Large");
+            tex.Name = "Foreground_Arch_Large";
+            AvailableTextures.Add("Foreground_Arch_Large", tex);
+
+            tex = Content.Load<Texture2D>("Foreground_Arch_Small");
+            tex.Name = "Foreground_Arch_Small";
+            AvailableTextures.Add("Foreground_Arch_Small", tex);
+
+            tex = Content.Load<Texture2D>("Foreground_Gap_Left");
+            tex.Name = "Foreground_Gap_Left";
+            AvailableTextures.Add("Foreground_Gap_Left", tex);
+
+            tex = Content.Load<Texture2D>("Foreground_Gap_Mid");
+            tex.Name = "Foreground_Gap_Mid";
+            AvailableTextures.Add("Foreground_Gap_Mid", tex);
+
+            tex = Content.Load<Texture2D>("Foreground_Gap_Right");
+            tex.Name = "Foreground_Gap_Right";
+            AvailableTextures.Add("Foreground_Gap_Right", tex);
+
+            tex = Content.Load<Texture2D>("Foreground_Railling");
+            tex.Name = "Foreground_Railling";
+            AvailableTextures.Add("Foreground_Railling", tex);
+
+            tex = Content.Load<Texture2D>("Foreground_Wall");
+            tex.Name = "Foreground_Wall";
+            AvailableTextures.Add("Foreground_Wall", tex);
+
+            tex = Content.Load<Texture2D>("Foreground_Wall_Gap_Left");
+            tex.Name = "Foreground_Wall_Gap_Left";
+            AvailableTextures.Add("Foreground_Wall_Gap_Left", tex);
+
+            tex = Content.Load<Texture2D>("Foreground_Wall_Gap_Mid");
+            tex.Name = "Foreground_Wall_Gap_Mid";
+            AvailableTextures.Add("Foreground_Wall_Gap_Mid", tex);
+
+            tex = Content.Load<Texture2D>("Foreground_Wall_Gap_Right");
+            tex.Name = "Foreground_Wall_Gap_Right";
+            AvailableTextures.Add("Foreground_Wall_Gap_Right", tex);
+
+            tex = Content.Load<Texture2D>("Platform_Wooden_Ledge_Left");
+            tex.Name = "Platform_Wooden_Ledge_Left";
+            AvailableTextures.Add("Platform_Wooden_Ledge_Left", tex);
+
+            tex = Content.Load<Texture2D>("Platform_Wooden_Ledge_Right");
+            tex.Name = "Platform_Wooden_Ledge_Right";
+            AvailableTextures.Add("Platform_Wooden_Ledge_Right", tex);
+
+            tex = Content.Load<Texture2D>("Platform_Wooden_Pole");
+            tex.Name = "Platform_Wooden_Pole";
+            AvailableTextures.Add("Platform_Wooden_Pole", tex);
+
+            tex = Content.Load<Texture2D>("Props_Barrel");
+            tex.Name = "Props_Barrel";
+            AvailableTextures.Add("Props_Barrel", tex);
+
+            tex = Content.Load<Texture2D>("Props_Crate");
+            tex.Name = "Props_Crate";
+            AvailableTextures.Add("Props_Crate", tex);
+
+            tex = Content.Load<Texture2D>("Top_Full");
+            tex.Name = "Top_Full";
+            AvailableTextures.Add("Top_Full", tex);
+
+            tex = Content.Load<Texture2D>("Top_Gap_Left");
+            tex.Name = "Top_Gap_Left";
+            AvailableTextures.Add("Top_Gap_Left", tex);
+
+            tex = Content.Load<Texture2D>("Top_Gap_Mid");
+            tex.Name = "Top_Gap_Mid";
+            AvailableTextures.Add("Top_Gap_Mid", tex);
+
+            tex = Content.Load<Texture2D>("Top_Gap_Right");
+            tex.Name = "Top_Gap_Right";
+            AvailableTextures.Add("Top_Gap_Right", tex);
         }
 
         public void Update(GameTime gameTime)
@@ -170,14 +246,14 @@ namespace ItalianStickDudes
                     camera.SetZoom(zoom);
                 }
 
-                if(currentKeyboard.IsKeyDown(Keys.PageUp))
+                if(Input.IsNewKeyDown(Keys.PageUp))
                 {
                     if (CurrentTexture != AvailableTextures.Keys.Count - 1)
                     {
                         CurrentTexture++;
                     }
                 }
-                else if (currentKeyboard.IsKeyDown(Keys.PageDown))
+                else if (Input.IsNewKeyDown(Keys.PageDown))
                 {
                     if (CurrentTexture != 0)
                     {
@@ -196,8 +272,8 @@ namespace ItalianStickDudes
                 {
                     CurrentDepth -= 0.1f;
 
-                    if (CurrentDepth < 0.0f)
-                        CurrentDepth = 0.0f;
+                    if (CurrentDepth < 0.1f)
+                        CurrentDepth = 0.1f;
                 }
 
                 if(Input.IsNewKeyDown(Keys.Z))
@@ -207,38 +283,47 @@ namespace ItalianStickDudes
                         MapTiles.RemoveAt(MapTiles.Count - 1);
                     }
                 }
+
+                if (Input.IsNewKeyDown(Keys.Multiply))
+                {
+                    BuildAmount++;
+                }
+                else if (Input.IsNewKeyDown(Keys.Divide))
+                {
+                    BuildAmount--;
+
+                    if (BuildAmount < 0)
+                        BuildAmount = 0;
+                }
+
+                if (Input.IsNewKeyDown(Keys.H))
+                    BuildHoriz = BuildHoriz ? false : true;
+                
  
 
                 if (Input.IsNewLeftMouseDown())
                 {
-                    Sprite ns = new Sprite();
-                    ns.Initialize(AvailableTextures.ElementAt(CurrentTexture).Value, new Vector2(0, 0), CurrentDepth);
-
-                    float texWidth = (ns.SpriteTexture.Width / 2) * camera.GetZoom(); 
-                    float texHeight = (ns.SpriteTexture.Height / 2) * camera.GetZoom(); 
-
-                    Vector2 loc = new Vector2(Input.GetCurrentMouseState().X - texWidth, Input.GetCurrentMouseState().Y - texHeight);
-                    loc = Vector2.Transform(loc, Matrix.Invert(camera.GetTransform()));
-                    ns.SetPosition(loc);
-                    MapTiles.Add(ns);
-                }
-
-                if (Input.GetCurrentMouseState().RightButton == ButtonState.Pressed)
-                {
-                    if (!Selected)
+                    for (int x = 0; x < BuildAmount; x++)
                     {
-                        //Find a tile inside 
-                    }
-                    else
-                    {
+                        Sprite ns = new Sprite();
+                        ns.Initialize(AvailableTextures.ElementAt(CurrentTexture).Value, new Vector2(0, 0), CurrentDepth);
 
-                        Sprite ns = MapTiles[SelectedIndex];
-                        float texWidth = (ns.SpriteTexture.Width / 2) * camera.GetZoom(); 
-                        float texHeight = (ns.SpriteTexture.Height / 2) * camera.GetZoom(); 
+                        float texWidth = (ns.SpriteTexture.Width / 2) * camera.GetZoom();
+                        float texHeight = (ns.SpriteTexture.Height / 2) * camera.GetZoom();
 
                         Vector2 loc = new Vector2(Input.GetCurrentMouseState().X - texWidth, Input.GetCurrentMouseState().Y - texHeight);
+                        if (BuildHoriz)
+                        {
+                            loc.X += texWidth * x;
+                        }
+                        else
+                        {
+                            loc.Y += texHeight * x;
+                        }
+
                         loc = Vector2.Transform(loc, Matrix.Invert(camera.GetTransform()));
                         ns.SetPosition(loc);
+                        MapTiles.Add(ns);
                     }
                 }
 
@@ -292,9 +377,18 @@ namespace ItalianStickDudes
             }
             else
             {
+
+                float texWidth = (AvailableTextures.ElementAt(CurrentTexture).Value.Width / 2) * camera.GetZoom(); 
+                float texHeight = (AvailableTextures.ElementAt(CurrentTexture).Value.Height / 2) * camera.GetZoom(); 
+
+                Vector2 loc = new Vector2(Input.GetCurrentMouseState().X - texWidth, Input.GetCurrentMouseState().Y - texHeight);
+                loc = Vector2.Transform(loc, Matrix.Invert(camera.GetTransform()));
+
                 spriteBatch.Begin(SpriteSortMode.BackToFront,
                 BlendState.AlphaBlend,
                 null, null, null, null, camera.GetTransform());
+
+                spriteBatch.Draw(AvailableTextures.ElementAt(CurrentTexture).Value, loc, null, Color.White, 0.0f, new Vector2(0, 0), 1.0f, SpriteEffects.None, 0.0f);
 
                 for (int x = 0; x < MapTiles.Count; x++)
                 {
@@ -305,11 +399,10 @@ namespace ItalianStickDudes
 
                 spriteBatch.Begin();
 
-                Texture2D tex = AvailableTextures.ElementAt(CurrentTexture).Value;
-                spriteBatch.DrawString(font, "Current Texture: ", new Vector2(970, 655), Color.Black);
-                spriteBatch.Draw(tex, new Vector2(1152, 592), Color.White);
-
-                spriteBatch.DrawString(font, "Depth: " + CurrentDepth, new Vector2(600, 655), Color.Black);
+                spriteBatch.DrawString(font, "Depth: " + CurrentDepth, new Vector2(1100, 600), Color.Black);
+                spriteBatch.DrawString(font, "Build Horizontally: " + BuildHoriz, new Vector2(1000, 620), Color.Black);
+                spriteBatch.DrawString(font, "Build Amount: " + BuildAmount, new Vector2(1100, 640), Color.Black);
+                
 
                 spriteBatch.End();
             }
