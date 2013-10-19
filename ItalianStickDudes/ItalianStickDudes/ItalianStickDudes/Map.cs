@@ -14,18 +14,19 @@ namespace ItalianStickDudes
         TRAP
     }
 
-    class MapTile
+    [Serializable]
+    public class MapTile
     {
-        public Vector2 Position;
-        public string TextureName;
-        public float Depth;
+        public Vector2 Position = new Vector2(0, 0);
+        public string TextureName = "";
+        public float Depth = 1.0f;
     }
 
-    class Map
+    [Serializable]
+    public class Map
     {
-        public string NameOfMap;
-        public List<MapTile> MapTiles;
-        
+        public string NameOfMap = "";
+        public List<MapTile> MapTiles = new List<MapTile>();        
     }
 
 }

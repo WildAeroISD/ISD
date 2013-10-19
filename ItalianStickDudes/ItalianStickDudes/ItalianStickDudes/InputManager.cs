@@ -122,7 +122,7 @@ namespace ItalianStickDudes
                 {
                     if (key != Keys.LeftShift && key != Keys.RightShift && key != Keys.LeftControl
                         && key != Keys.RightControl && key != Keys.RightAlt && key != Keys.LeftAlt
-                         && key != Keys.Back)
+                         && key != Keys.Back && key != Keys.Escape && key != Keys.Enter)
                     {
                         if (key == Keys.Space)
                         {

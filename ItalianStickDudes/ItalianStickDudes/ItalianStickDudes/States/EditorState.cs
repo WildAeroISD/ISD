@@ -38,6 +38,9 @@ namespace ItalianStickDudes
         private int CurrentTexture;
         private float CurrentDepth;
 
+        private bool Selected;
+        private int SelectedIndex;
+
         public EditorState()
         {
             ChosenFile = false;
@@ -45,6 +48,7 @@ namespace ItalianStickDudes
             LoadFile = false;
             GoMenu = false;
             FileLoadError = false;
+            Selected = false;
 
             InputString = "";
             Input = new InputManager();
@@ -55,6 +59,8 @@ namespace ItalianStickDudes
 
             CurrentTexture = 0;
             CurrentDepth = 1.0f;
+
+            SelectedIndex = 0;
         }
 
         public void Initialize(ContentManager Content)
@@ -62,8 +68,13 @@ namespace ItalianStickDudes
             this.Content = Content;
             font = Content.Load<SpriteFont>("DebugFont");
 
-            AvailableTextures.Add("Test", Content.Load<Texture2D>("test"));
-            AvailableTextures.Add("Test2", Content.Load<Texture2D>("test2"));
+            Texture2D tex = Content.Load<Texture2D>("test");
+            tex.Name = "test";
+            AvailableTextures.Add("test", tex);
+
+            tex = Content.Load<Texture2D>("test2");
+            tex.Name = "test2";
+            AvailableTextures.Add("test2", tex);
         }
 
         public void Update(GameTime gameTime)
@@ -98,7 +109,7 @@ namespace ItalianStickDudes
                     {
                         if (LoadFile)
                         {
-                            Stream stream = File.Open(InputString, FileMode.Open);
+                            Stream stream = File.Open("Maps\\" + InputString + ".entm", FileMode.Open);
                             BinaryFormatter bFormatter = new BinaryFormatter();
                             map = (Map)bFormatter.Deserialize(stream);
                             stream.Close();
@@ -188,16 +199,68 @@ namespace ItalianStickDudes
                     if (CurrentDepth < 0.0f)
                         CurrentDepth = 0.0f;
                 }
+
+                if(Input.IsNewKeyDown(Keys.Z))
+                {
+                    if (MapTiles.Count > 0)
+                    {
+                        MapTiles.RemoveAt(MapTiles.Count - 1);
+                    }
+                }
  
 
                 if (Input.IsNewLeftMouseDown())
                 {
                     Sprite ns = new Sprite();
                     ns.Initialize(AvailableTextures.ElementAt(CurrentTexture).Value, new Vector2(0, 0), CurrentDepth);
-                    Vector2 loc = new Vector2(Input.GetCurrentMouseState().X - (ns.SpriteTexture.Width / 2), Input.GetCurrentMouseState().Y - (ns.SpriteTexture.Height / 2));
+
+                    float texWidth = (ns.SpriteTexture.Width / 2) * camera.GetZoom(); 
+                    float texHeight = (ns.SpriteTexture.Height / 2) * camera.GetZoom(); 
+
+                    Vector2 loc = new Vector2(Input.GetCurrentMouseState().X - texWidth, Input.GetCurrentMouseState().Y - texHeight);
                     loc = Vector2.Transform(loc, Matrix.Invert(camera.GetTransform()));
                     ns.SetPosition(loc);
                     MapTiles.Add(ns);
+                }
+
+                if (Input.GetCurrentMouseState().RightButton == ButtonState.Pressed)
+                {
+                    if (!Selected)
+                    {
+                        //Find a tile inside 
+                    }
+                    else
+                    {
+
+                        Sprite ns = MapTiles[SelectedIndex];
+                        float texWidth = (ns.SpriteTexture.Width / 2) * camera.GetZoom(); 
+                        float texHeight = (ns.SpriteTexture.Height / 2) * camera.GetZoom(); 
+
+                        Vector2 loc = new Vector2(Input.GetCurrentMouseState().X - texWidth, Input.GetCurrentMouseState().Y - texHeight);
+                        loc = Vector2.Transform(loc, Matrix.Invert(camera.GetTransform()));
+                        ns.SetPosition(loc);
+                    }
+                }
+
+                if (Input.IsNewKeyDown(Keys.J))
+                {
+                    Map buildMap = new Map();
+                    buildMap.NameOfMap = InputString;
+                    
+                    for(int z = 0; z < MapTiles.Count; z++)
+                    {
+                        MapTile tile = new MapTile();
+                        tile.Position = MapTiles[z].GetPosition();
+                        tile.TextureName = MapTiles[z].SpriteTexture.Name.ToString();
+                        tile.Depth = MapTiles[z].GetDepth();
+
+                        buildMap.MapTiles.Add(tile);
+                    }
+
+                    Stream stream = File.Open("Maps\\" + InputString + ".entm", FileMode.Create);
+                    BinaryFormatter bFormatter = new BinaryFormatter();
+                    bFormatter.Serialize(stream, buildMap);
+                    stream.Close();
                 }
             }
         }

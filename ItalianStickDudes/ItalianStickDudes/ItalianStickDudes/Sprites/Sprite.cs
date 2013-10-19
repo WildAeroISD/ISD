@@ -43,5 +43,15 @@ namespace ItalianStickDudes
         {
             Position = pos;
         }
+
+        public Vector2 GetPosition()
+        {
+            return Position;
+        }
+
+        public float GetDepth()
+        {
+            return Depth;
+        }
     }
 }
