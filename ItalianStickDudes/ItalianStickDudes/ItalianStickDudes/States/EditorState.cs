@@ -41,6 +41,9 @@ namespace ItalianStickDudes
         private bool BuildHoriz;
         private int BuildAmount;
 
+        private int SelectingIndex = -1;
+        private bool Hide = false;
+
         public EditorState()
         {
             ChosenFile = false;
@@ -136,9 +139,42 @@ namespace ItalianStickDudes
             tex.Name = "Top_Gap_Left";
             AvailableTextures.Add("Top_Gap_Left", tex);
 
+            tex = Content.Load<Texture2D>("Background_GreenWall");
+            tex.Name = "Background_GreenWall";
+            AvailableTextures.Add("Background_GreenWall", tex);
+
+            tex = Content.Load<Texture2D>("Background_LargeAwning");
+            tex.Name = "Background_LargeAwning";
+            AvailableTextures.Add("Background_LargeAwning", tex);
+
+            tex = Content.Load<Texture2D>("Background_LargeWoodenShutter");
+            tex.Name = "Background_LargeWoodenShutter";
+            AvailableTextures.Add("Background_LargeWoodenShutter", tex);
+
+            tex = Content.Load<Texture2D>("Background_SmallAwning");
+            tex.Name = "Background_SmallAwning";
+            AvailableTextures.Add("Background_SmallAwning", tex);
+
+            tex = Content.Load<Texture2D>("Background_SmallWoodenShutter");
+            tex.Name = "Background_SmallWoodenShutter";
+            AvailableTextures.Add("Background_SmallWoodenShutter", tex);
+
             tex = Content.Load<Texture2D>("Top_Gap_Right");
             tex.Name = "Top_Gap_Right";
             AvailableTextures.Add("Top_Gap_Right", tex);
+
+            tex = Content.Load<Texture2D>("Background_YellowWall");
+            tex.Name = "Background_YellowWall";
+            AvailableTextures.Add("Background_YellowWall", tex);
+
+            tex = Content.Load<Texture2D>("Foreground_Metal_Railing");
+            tex.Name = "Foreground_Metal_Railing";
+            AvailableTextures.Add("Foreground_Metal_Railing", tex);
+
+            tex = Content.Load<Texture2D>("Foreground_Stone_Wall");
+            tex.Name = "Foreground_Stone_Wall";
+            AvailableTextures.Add("Foreground_Stone_Wall", tex);
+
         }
 
         public void Update(GameTime gameTime)
@@ -268,7 +304,8 @@ namespace ItalianStickDudes
                 {
                     if (MapTiles.Count > 0)
                     {
-                        MapTiles.RemoveAt(MapTiles.Count - 1);
+  
+                            MapTiles.RemoveAt(MapTiles.Count - 1);
                     }
                 }
 
@@ -284,12 +321,63 @@ namespace ItalianStickDudes
                         BuildAmount = 0;
                 }
 
-                if (Input.IsNewKeyDown(Keys.H))
+                if (Input.IsNewKeyDown(Keys.B))
                     BuildHoriz = BuildHoriz ? false : true;
-                
+
+                if (Input.IsNewKeyDown(Keys.H))
+                    Hide = Hide ? false : true;
+
+                if (Input.GetCurrentMouseState().RightButton == ButtonState.Pressed)
+                {
+                    if (SelectingIndex == -1)
+                    {
+                        //Get mouse pos
+                        Vector2 mousePos = new Vector2(Input.GetCurrentMouseState().X, Input.GetCurrentMouseState().Y);
+                        mousePos = Vector2.Transform(mousePos, Matrix.Invert(camera.GetTransform()));
+
+                        for (int v = 0; v < MapTiles.Count; v++)
+                        {
+                            Sprite tile = MapTiles[v];
+                            if (tile.GetDepth() == CurrentDepth)
+                            {
+                                //Transform position to same coordinates as mouse
+                                Vector2 pos = tile.GetPosition();
+                                if (mousePos.X >= pos.X && mousePos.X <= (pos.X + tile.SpriteTexture.Width))
+                                {
+                                    if (mousePos.Y >= pos.Y && mousePos.Y <= (pos.Y + tile.SpriteTexture.Height))
+                                    {
+                                        SelectingIndex = v;
+                                        break;
+                                    }
+                                }
+
+                            }
+                        }
+                    }
+                    else
+                    {
+                        Sprite st = MapTiles[SelectingIndex];
+                        float texWidth = (st.SpriteTexture.Width / 2) * camera.GetZoom();
+                        float texHeight = (st.SpriteTexture.Height / 2) * camera.GetZoom();
+
+                        Vector2 loc = new Vector2(Input.GetCurrentMouseState().X - texWidth, Input.GetCurrentMouseState().Y - texHeight);
+                        loc = Vector2.Transform(loc, Matrix.Invert(camera.GetTransform()));
+                        st.SetPosition(loc);
+
+                        if (Input.IsNewKeyDown(Keys.Delete))
+                        {
+                            MapTiles.RemoveAt(SelectingIndex);
+                            SelectingIndex = -1;
+                        }
+                    }
+                }
+                else if(Input.GetCurrentMouseState().RightButton == ButtonState.Released)
+                {
+                    SelectingIndex = -1;
+                }
  
 
-                if (Input.IsNewLeftMouseDown())
+                if (Input.IsNewLeftMouseDown() && !Hide)
                 {
                     for (int x = 0; x < BuildAmount; x++)
                     {
@@ -302,7 +390,7 @@ namespace ItalianStickDudes
                         Vector2 loc = new Vector2(Input.GetCurrentMouseState().X - texWidth, Input.GetCurrentMouseState().Y - texHeight);
                         if (BuildHoriz)
                         {
-                            loc.X += texWidth * x;
+                            loc.X = loc.X + (texWidth * x);
                         }
                         else
                         {
@@ -366,17 +454,19 @@ namespace ItalianStickDudes
             else
             {
 
-                float texWidth = (AvailableTextures.ElementAt(CurrentTexture).Value.Width / 2) * camera.GetZoom(); 
-                float texHeight = (AvailableTextures.ElementAt(CurrentTexture).Value.Height / 2) * camera.GetZoom(); 
-
-                Vector2 loc = new Vector2(Input.GetCurrentMouseState().X - texWidth, Input.GetCurrentMouseState().Y - texHeight);
-                loc = Vector2.Transform(loc, Matrix.Invert(camera.GetTransform()));
-
                 spriteBatch.Begin(SpriteSortMode.BackToFront,
-                BlendState.AlphaBlend,
-                null, null, null, null, camera.GetTransform());
+                    BlendState.AlphaBlend,
+                    null, null, null, null, camera.GetTransform());
 
-                spriteBatch.Draw(AvailableTextures.ElementAt(CurrentTexture).Value, loc, null, Color.White, 0.0f, new Vector2(0, 0), 1.0f, SpriteEffects.None, 0.0f);
+                if (!Hide)
+                {
+                    float texWidth = (AvailableTextures.ElementAt(CurrentTexture).Value.Width / 2) * camera.GetZoom();
+                    float texHeight = (AvailableTextures.ElementAt(CurrentTexture).Value.Height / 2) * camera.GetZoom();
+
+                    Vector2 loc = new Vector2(Input.GetCurrentMouseState().X - texWidth, Input.GetCurrentMouseState().Y - texHeight);
+                    loc = Vector2.Transform(loc, Matrix.Invert(camera.GetTransform()));
+                    spriteBatch.Draw(AvailableTextures.ElementAt(CurrentTexture).Value, loc, null, Color.White, 0.0f, new Vector2(0, 0), 1.0f, SpriteEffects.None, 0.0f);
+                }
 
                 for (int x = 0; x < MapTiles.Count; x++)
                 {
@@ -385,11 +475,22 @@ namespace ItalianStickDudes
 
                 spriteBatch.End();
 
+
+                Vector2 mouseLoc = new Vector2(Input.GetCurrentMouseState().X, Input.GetCurrentMouseState().Y);
+                mouseLoc = Vector2.Transform(mouseLoc, Matrix.Invert(camera.GetTransform()));
+
                 spriteBatch.Begin();
 
+                
+
+                spriteBatch.DrawString(font, "X: " + mouseLoc.X, new Vector2(0, 0), Color.Black);
+                spriteBatch.DrawString(font, "Y: " + mouseLoc.Y, new Vector2(0, 20), Color.Black);
+
                 spriteBatch.DrawString(font, "Depth: " + CurrentDepth, new Vector2(1100, 600), Color.Black);
-                spriteBatch.DrawString(font, "Build Horizontally: " + BuildHoriz, new Vector2(1000, 620), Color.Black);
+                spriteBatch.DrawString(font, "Hide: " + Hide, new Vector2(1100, 660), Color.Black);
                 spriteBatch.DrawString(font, "Build Amount: " + BuildAmount, new Vector2(1100, 640), Color.Black);
+                spriteBatch.DrawString(font, "Build Horizontally: " + BuildHoriz, new Vector2(1000, 620), Color.Black);
+                
                 
 
                 spriteBatch.End();
