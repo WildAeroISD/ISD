@@ -88,10 +88,6 @@ namespace ItalianStickDudes
             tex.Name = "Foreground_Gap_Left";
             AvailableTextures.Add("Foreground_Gap_Left", tex);
 
-            tex = Content.Load<Texture2D>("Foreground_Gap_Mid");
-            tex.Name = "Foreground_Gap_Mid";
-            AvailableTextures.Add("Foreground_Gap_Mid", tex);
-
             tex = Content.Load<Texture2D>("Foreground_Gap_Right");
             tex.Name = "Foreground_Gap_Right";
             AvailableTextures.Add("Foreground_Gap_Right", tex);
@@ -107,10 +103,6 @@ namespace ItalianStickDudes
             tex = Content.Load<Texture2D>("Foreground_Wall_Gap_Left");
             tex.Name = "Foreground_Wall_Gap_Left";
             AvailableTextures.Add("Foreground_Wall_Gap_Left", tex);
-
-            tex = Content.Load<Texture2D>("Foreground_Wall_Gap_Mid");
-            tex.Name = "Foreground_Wall_Gap_Mid";
-            AvailableTextures.Add("Foreground_Wall_Gap_Mid", tex);
 
             tex = Content.Load<Texture2D>("Foreground_Wall_Gap_Right");
             tex.Name = "Foreground_Wall_Gap_Right";
@@ -143,10 +135,6 @@ namespace ItalianStickDudes
             tex = Content.Load<Texture2D>("Top_Gap_Left");
             tex.Name = "Top_Gap_Left";
             AvailableTextures.Add("Top_Gap_Left", tex);
-
-            tex = Content.Load<Texture2D>("Top_Gap_Mid");
-            tex.Name = "Top_Gap_Mid";
-            AvailableTextures.Add("Top_Gap_Mid", tex);
 
             tex = Content.Load<Texture2D>("Top_Gap_Right");
             tex.Name = "Top_Gap_Right";

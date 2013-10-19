@@ -72,6 +72,17 @@ namespace ItalianStickDudes
             if (currentKeyboard.IsKeyDown(Keys.Up))
                 camera.Move(new Vector2(0.0f, -10.0f));
 
+            if (Input.GetCurrentMouseState().ScrollWheelValue < Input.GetPreviousMouseState().ScrollWheelValue)
+            {
+                float zoom = camera.GetZoom() - 0.1f;
+                camera.SetZoom(zoom);
+            }
+            else if (Input.GetCurrentMouseState().ScrollWheelValue > Input.GetPreviousMouseState().ScrollWheelValue)
+            {
+                float zoom = camera.GetZoom() + 0.1f;
+                camera.SetZoom(zoom);
+            }
+
             if (!Paused)
             {
                 if(Input.AnyPlayerPressed(Buttons.Start))

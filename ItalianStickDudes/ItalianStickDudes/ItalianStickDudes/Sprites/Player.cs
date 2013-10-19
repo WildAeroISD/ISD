@@ -14,7 +14,11 @@ namespace ItalianStickDudes
         private int PlayerNumber;
         private Vector2 Velocity;
 
-        private bool Running = false;        
+        private bool Running = false;
+        private bool Falling = false;
+
+        private bool Jumping;
+        private Vector2 JumpPosition;
 
         public Player()
         {
@@ -26,10 +30,13 @@ namespace ItalianStickDudes
             Position = StartPosition;
             SpriteTexture = playerTexture;
             PlayerNumber = WhichPlayer;
+
+            Jumping = false;
+            JumpPosition = Vector2.Zero;
             
-            InitializeAnimation(2, 8);
+            InitializeAnimation(5, 8);
             AddAnimation("idle", 0, 2, 800);
-            AddAnimation("running", 3, 9, 600);
+            AddAnimation("running", 2, 8, 600);
             PlayAnimation("idle");
         }
 
@@ -39,31 +46,35 @@ namespace ItalianStickDudes
             GamePadState gamePad = Input.GetCurrentGamePadState(PlayerNumber);
 
             float amount = gamePad.ThumbSticks.Left.X;
-            Velocity.X += amount;
 
             if(amount > 0.0f)
                 Flip = false;
             else if(amount < 0.0f)
                 Flip = true;
 
-            if (gamePad.ThumbSticks.Left.X == 0.0f)
+            if (amount == 0.0f)
             {
-                if (Velocity.X > 1.0f)
+                if (Velocity.X > 0.6f)
                 {
                     Velocity.X -= 0.6f;
                     Running = true;
                 }
-                else if (Velocity.X < -1.0f)
+                else if (Velocity.X < -0.6)
                 {
                     Running = true;
                     Velocity.X += 0.6f;
                 }
 
-                if (Velocity.X < 1.0f && Velocity.X > -1.0f)
+                if (Velocity.X < 0.6 && Velocity.X > -0.6)
                 {
                     Velocity.X = 0.0f;
                     Running = false;
                 }
+            }
+            else
+            {
+                Velocity.X += amount;
+                Running = true;
             }
 
             if (Running)
@@ -71,11 +82,51 @@ namespace ItalianStickDudes
             else if(!Running)
                 PlayAnimation("idle");
 
+            if (!Jumping && !Falling)
+            {
+                if (Input.GetCurrentGamePadState(PlayerNumber).Buttons.A == ButtonState.Pressed)
+                {
+                    JumpPosition = Position;
+                    Jumping = true;
+                }
+
+            }
+            else
+            {
+                if(JumpPosition.Y - Position.Y > 300)
+                {
+                    Falling = true;
+                    Jumping = false;
+                }
+
+                if (!Falling)
+                {
+                    Velocity.Y -= 20.0f;
+                }
+                else
+                {
+                    Velocity.Y += 15.0f;
+
+                    if(Position.Y >= JumpPosition.Y)
+                    {
+                        Falling = false;
+                        Position.Y = JumpPosition.Y;
+                        Velocity.Y = 0.0f;
+                    }
+                }
+            }
+
             if (Velocity.X >= 20.0f)
                 Velocity.X = 20.0f;
             else if (Velocity.X <= -20.0f)
                 Velocity.X = -20.0f;
 
+            if (Velocity.Y >= 20.0f)
+                Velocity.Y = 20.0f;
+            else if (Velocity.Y <= -20.0f)
+                Velocity.Y = -20.0f;
+
+            
             Position += Velocity;
         }
 
