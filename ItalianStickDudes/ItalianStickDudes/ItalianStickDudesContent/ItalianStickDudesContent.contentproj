@@ -225,10 +225,18 @@
       <Name>LoadingPlaceHolder</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
-      <ProcessorParameters_ColorKeyColor>0, 0, 0, 255</ProcessorParameters_ColorKeyColor>
+      <ProcessorParameters_ColorKeyColor>255, 255, 255, 255</ProcessorParameters_ColorKeyColor>
     </Compile>
     <Compile Include="MenuPlaceHolder.bmp">
       <Name>MenuPlaceHolder</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <ProcessorParameters_ColorKeyColor>255, 255, 255, 255</ProcessorParameters_ColorKeyColor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Foreground_Lamp.png">
+      <Name>Foreground_Lamp</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <ProcessorParameters_ColorKeyColor>0, 0, 0, 255</ProcessorParameters_ColorKeyColor>

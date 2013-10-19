@@ -32,7 +32,7 @@
       </Parameters>
       <Options>None</Options>
       <Output>\\ctstudent2\studentusers\100281608\Desktop\GitHub\ISD\ItalianStickDudes\ItalianStickDudes\ItalianStickDudes\bin\x86\Debug\Content\Background_GreenWall.xnb</Output>
-      <Time>2013-10-19T15:48:37.2210127+01:00</Time>
+      <Time>2013-10-19T16:47:42.6390194+01:00</Time>
     </Item>
     <Item>
       <Source>Background_LargeAwning.png</Source>
@@ -44,7 +44,7 @@
       </Parameters>
       <Options>None</Options>
       <Output>\\ctstudent2\studentusers\100281608\Desktop\GitHub\ISD\ItalianStickDudes\ItalianStickDudes\ItalianStickDudes\bin\x86\Debug\Content\Background_LargeAwning.xnb</Output>
-      <Time>2013-10-19T15:48:37.2370239+01:00</Time>
+      <Time>2013-10-19T16:47:42.6610194+01:00</Time>
     </Item>
     <Item>
       <Source>Background_LargeWoodenShutter.png</Source>
@@ -56,7 +56,7 @@
       </Parameters>
       <Options>None</Options>
       <Output>\\ctstudent2\studentusers\100281608\Desktop\GitHub\ISD\ItalianStickDudes\ItalianStickDudes\ItalianStickDudes\bin\x86\Debug\Content\Background_LargeWoodenShutter.xnb</Output>
-      <Time>2013-10-19T15:48:37.2550365+01:00</Time>
+      <Time>2013-10-19T16:47:42.6830194+01:00</Time>
     </Item>
     <Item>
       <Source>Background_Plain.png</Source>
@@ -68,7 +68,7 @@
       </Parameters>
       <Options>None</Options>
       <Output>\\ctstudent2\studentusers\100281608\Desktop\GitHub\ISD\ItalianStickDudes\ItalianStickDudes\ItalianStickDudes\bin\x86\Debug\Content\Background_Plain.xnb</Output>
-      <Time>2013-10-19T15:48:37.2910617+01:00</Time>
+      <Time>2013-10-19T16:47:42.7120194+01:00</Time>
     </Item>
     <Item>
       <Source>Background_RedWall.png</Source>
@@ -80,7 +80,7 @@
       </Parameters>
       <Options>None</Options>
       <Output>\\ctstudent2\studentusers\100281608\Desktop\GitHub\ISD\ItalianStickDudes\ItalianStickDudes\ItalianStickDudes\bin\x86\Debug\Content\Background_RedWall.xnb</Output>
-      <Time>2013-10-19T15:48:37.3090743+01:00</Time>
+      <Time>2013-10-19T16:47:42.7410194+01:00</Time>
     </Item>
     <Item>
       <Source>Background_SmallAwning.png</Source>
@@ -92,7 +92,7 @@
       </Parameters>
       <Options>None</Options>
       <Output>\\ctstudent2\studentusers\100281608\Desktop\GitHub\ISD\ItalianStickDudes\ItalianStickDudes\ItalianStickDudes\bin\x86\Debug\Content\Background_SmallAwning.xnb</Output>
-      <Time>2013-10-19T15:48:37.3270869+01:00</Time>
+      <Time>2013-10-19T16:47:42.7700194+01:00</Time>
     </Item>
     <Item>
       <Source>Background_SmallWoodenShutter.png</Source>
@@ -104,7 +104,7 @@
       </Parameters>
       <Options>None</Options>
       <Output>\\ctstudent2\studentusers\100281608\Desktop\GitHub\ISD\ItalianStickDudes\ItalianStickDudes\ItalianStickDudes\bin\x86\Debug\Content\Background_SmallWoodenShutter.xnb</Output>
-      <Time>2013-10-19T15:48:37.3450995+01:00</Time>
+      <Time>2013-10-19T16:47:42.8010194+01:00</Time>
     </Item>
     <Item>
       <Source>Background_Windowed.png</Source>
@@ -116,7 +116,7 @@
       </Parameters>
       <Options>None</Options>
       <Output>\\ctstudent2\studentusers\100281608\Desktop\GitHub\ISD\ItalianStickDudes\ItalianStickDudes\ItalianStickDudes\bin\x86\Debug\Content\Background_Windowed.xnb</Output>
-      <Time>2013-10-19T15:48:37.3661142+01:00</Time>
+      <Time>2013-10-19T16:47:42.8320194+01:00</Time>
     </Item>
     <Item>
       <Source>Background_YellowWall.png</Source>
@@ -128,7 +128,7 @@
       </Parameters>
       <Options>None</Options>
       <Output>\\ctstudent2\studentusers\100281608\Desktop\GitHub\ISD\ItalianStickDudes\ItalianStickDudes\ItalianStickDudes\bin\x86\Debug\Content\Background_YellowWall.xnb</Output>
-      <Time>2013-10-19T15:48:37.3951345+01:00</Time>
+      <Time>2013-10-19T16:47:42.8630194+01:00</Time>
     </Item>
     <Item>
       <Source>Foreground_Arch_Large.png</Source>
@@ -140,7 +140,7 @@
       </Parameters>
       <Options>None</Options>
       <Output>\\ctstudent2\studentusers\100281608\Desktop\GitHub\ISD\ItalianStickDudes\ItalianStickDudes\ItalianStickDudes\bin\x86\Debug\Content\Foreground_Arch_Large.xnb</Output>
-      <Time>2013-10-19T15:48:37.4141478+01:00</Time>
+      <Time>2013-10-19T16:47:42.8890194+01:00</Time>
     </Item>
     <Item>
       <Source>Foreground_Arch_Small.png</Source>
@@ -152,7 +152,7 @@
       </Parameters>
       <Options>None</Options>
       <Output>\\ctstudent2\studentusers\100281608\Desktop\GitHub\ISD\ItalianStickDudes\ItalianStickDudes\ItalianStickDudes\bin\x86\Debug\Content\Foreground_Arch_Small.xnb</Output>
-      <Time>2013-10-19T15:48:37.4331611+01:00</Time>
+      <Time>2013-10-19T16:47:42.9190194+01:00</Time>
     </Item>
     <Item>
       <Source>Foreground_Gap_Left.png</Source>
@@ -164,7 +164,7 @@
       </Parameters>
       <Options>None</Options>
       <Output>\\ctstudent2\studentusers\100281608\Desktop\GitHub\ISD\ItalianStickDudes\ItalianStickDudes\ItalianStickDudes\bin\x86\Debug\Content\Foreground_Gap_Left.xnb</Output>
-      <Time>2013-10-19T15:48:37.4511737+01:00</Time>
+      <Time>2013-10-19T16:47:42.9480194+01:00</Time>
     </Item>
     <Item>
       <Source>Foreground_Gap_Right.png</Source>
@@ -176,7 +176,7 @@
       </Parameters>
       <Options>None</Options>
       <Output>\\ctstudent2\studentusers\100281608\Desktop\GitHub\ISD\ItalianStickDudes\ItalianStickDudes\ItalianStickDudes\bin\x86\Debug\Content\Foreground_Gap_Right.xnb</Output>
-      <Time>2013-10-19T15:48:37.4711877+01:00</Time>
+      <Time>2013-10-19T16:47:42.9780194+01:00</Time>
     </Item>
     <Item>
       <Source>Foreground_Metal_Railing.png</Source>
@@ -188,7 +188,7 @@
       </Parameters>
       <Options>None</Options>
       <Output>\\ctstudent2\studentusers\100281608\Desktop\GitHub\ISD\ItalianStickDudes\ItalianStickDudes\ItalianStickDudes\bin\x86\Debug\Content\Foreground_Metal_Railing.xnb</Output>
-      <Time>2013-10-19T15:48:37.4912017+01:00</Time>
+      <Time>2013-10-19T16:47:43.0300194+01:00</Time>
     </Item>
     <Item>
       <Source>Foreground_Railling.png</Source>
@@ -200,7 +200,7 @@
       </Parameters>
       <Options>None</Options>
       <Output>\\ctstudent2\studentusers\100281608\Desktop\GitHub\ISD\ItalianStickDudes\ItalianStickDudes\ItalianStickDudes\bin\x86\Debug\Content\Foreground_Railling.xnb</Output>
-      <Time>2013-10-19T15:48:37.510215+01:00</Time>
+      <Time>2013-10-19T16:47:43.0600194+01:00</Time>
     </Item>
     <Item>
       <Source>Foreground_Stone_Wall.png</Source>
@@ -212,7 +212,7 @@
       </Parameters>
       <Options>None</Options>
       <Output>\\ctstudent2\studentusers\100281608\Desktop\GitHub\ISD\ItalianStickDudes\ItalianStickDudes\ItalianStickDudes\bin\x86\Debug\Content\Foreground_Stone_Wall.xnb</Output>
-      <Time>2013-10-19T15:48:37.530229+01:00</Time>
+      <Time>2013-10-19T16:47:43.0900194+01:00</Time>
     </Item>
     <Item>
       <Source>Foreground_Wall.png</Source>
@@ -224,7 +224,7 @@
       </Parameters>
       <Options>None</Options>
       <Output>\\ctstudent2\studentusers\100281608\Desktop\GitHub\ISD\ItalianStickDudes\ItalianStickDudes\ItalianStickDudes\bin\x86\Debug\Content\Foreground_Wall.xnb</Output>
-      <Time>2013-10-19T15:48:37.5492423+01:00</Time>
+      <Time>2013-10-19T16:47:43.1190194+01:00</Time>
     </Item>
     <Item>
       <Source>Foreground_Wall_Gap_Left.png</Source>
@@ -236,7 +236,7 @@
       </Parameters>
       <Options>None</Options>
       <Output>\\ctstudent2\studentusers\100281608\Desktop\GitHub\ISD\ItalianStickDudes\ItalianStickDudes\ItalianStickDudes\bin\x86\Debug\Content\Foreground_Wall_Gap_Left.xnb</Output>
-      <Time>2013-10-19T15:48:37.570257+01:00</Time>
+      <Time>2013-10-19T16:47:43.1480194+01:00</Time>
     </Item>
     <Item>
       <Source>Foreground_Wall_Gap_Right.png</Source>
@@ -248,7 +248,7 @@
       </Parameters>
       <Options>None</Options>
       <Output>\\ctstudent2\studentusers\100281608\Desktop\GitHub\ISD\ItalianStickDudes\ItalianStickDudes\ItalianStickDudes\bin\x86\Debug\Content\Foreground_Wall_Gap_Right.xnb</Output>
-      <Time>2013-10-19T15:48:37.5892703+01:00</Time>
+      <Time>2013-10-19T16:47:43.1780194+01:00</Time>
     </Item>
     <Item>
       <Source>Platform_Wooden_Ledge_Left.png</Source>
@@ -260,7 +260,7 @@
       </Parameters>
       <Options>None</Options>
       <Output>\\ctstudent2\studentusers\100281608\Desktop\GitHub\ISD\ItalianStickDudes\ItalianStickDudes\ItalianStickDudes\bin\x86\Debug\Content\Platform_Wooden_Ledge_Left.xnb</Output>
-      <Time>2013-10-19T15:48:37.610285+01:00</Time>
+      <Time>2013-10-19T16:47:44.5880194+01:00</Time>
     </Item>
     <Item>
       <Source>Platform_Wooden_Ledge_Right.png</Source>
@@ -272,7 +272,7 @@
       </Parameters>
       <Options>None</Options>
       <Output>\\ctstudent2\studentusers\100281608\Desktop\GitHub\ISD\ItalianStickDudes\ItalianStickDudes\ItalianStickDudes\bin\x86\Debug\Content\Platform_Wooden_Ledge_Right.xnb</Output>
-      <Time>2013-10-19T15:48:39.7077522+01:00</Time>
+      <Time>2013-10-19T16:47:44.6130194+01:00</Time>
     </Item>
     <Item>
       <Source>Platform_Wooden_Pole.png</Source>
@@ -284,7 +284,7 @@
       </Parameters>
       <Options>None</Options>
       <Output>\\ctstudent2\studentusers\100281608\Desktop\GitHub\ISD\ItalianStickDudes\ItalianStickDudes\ItalianStickDudes\bin\x86\Debug\Content\Platform_Wooden_Pole.xnb</Output>
-      <Time>2013-10-19T15:48:39.7267655+01:00</Time>
+      <Time>2013-10-19T16:47:44.6400194+01:00</Time>
     </Item>
     <Item>
       <Source>Props_Barrel.png</Source>
@@ -296,7 +296,7 @@
       </Parameters>
       <Options>None</Options>
       <Output>\\ctstudent2\studentusers\100281608\Desktop\GitHub\ISD\ItalianStickDudes\ItalianStickDudes\ItalianStickDudes\bin\x86\Debug\Content\Props_Barrel.xnb</Output>
-      <Time>2013-10-19T15:48:39.7447781+01:00</Time>
+      <Time>2013-10-19T16:47:44.6690194+01:00</Time>
     </Item>
     <Item>
       <Source>Props_Crate.png</Source>
@@ -308,7 +308,7 @@
       </Parameters>
       <Options>None</Options>
       <Output>\\ctstudent2\studentusers\100281608\Desktop\GitHub\ISD\ItalianStickDudes\ItalianStickDudes\ItalianStickDudes\bin\x86\Debug\Content\Props_Crate.xnb</Output>
-      <Time>2013-10-19T15:48:39.7647921+01:00</Time>
+      <Time>2013-10-19T16:47:44.6990194+01:00</Time>
     </Item>
     <Item>
       <Source>Top_Full.png</Source>
@@ -320,7 +320,7 @@
       </Parameters>
       <Options>None</Options>
       <Output>\\ctstudent2\studentusers\100281608\Desktop\GitHub\ISD\ItalianStickDudes\ItalianStickDudes\ItalianStickDudes\bin\x86\Debug\Content\Top_Full.xnb</Output>
-      <Time>2013-10-19T15:48:39.7848061+01:00</Time>
+      <Time>2013-10-19T16:47:44.7300194+01:00</Time>
     </Item>
     <Item>
       <Source>Top_Gap_Left.png</Source>
@@ -332,7 +332,7 @@
       </Parameters>
       <Options>None</Options>
       <Output>\\ctstudent2\studentusers\100281608\Desktop\GitHub\ISD\ItalianStickDudes\ItalianStickDudes\ItalianStickDudes\bin\x86\Debug\Content\Top_Gap_Left.xnb</Output>
-      <Time>2013-10-19T15:48:39.8038194+01:00</Time>
+      <Time>2013-10-19T16:47:44.7570194+01:00</Time>
     </Item>
     <Item>
       <Source>Top_Gap_Right.png</Source>
@@ -344,7 +344,7 @@
       </Parameters>
       <Options>None</Options>
       <Output>\\ctstudent2\studentusers\100281608\Desktop\GitHub\ISD\ItalianStickDudes\ItalianStickDudes\ItalianStickDudes\bin\x86\Debug\Content\Top_Gap_Right.xnb</Output>
-      <Time>2013-10-19T15:48:39.8238334+01:00</Time>
+      <Time>2013-10-19T16:47:44.7880194+01:00</Time>
     </Item>
     <Item>
       <Source>LoadingPlaceHolder.bmp</Source>
@@ -352,7 +352,7 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Parameters>
-        <Data Key="ColorKeyColor">0, 0, 0, 255</Data>
+        <Data Key="ColorKeyColor">255, 255, 255, 255</Data>
       </Parameters>
       <Options>None</Options>
       <Output>\\ctstudent2\studentusers\100281608\Desktop\GitHub\ISD\ItalianStickDudes\ItalianStickDudes\ItalianStickDudes\bin\x86\Debug\Content\LoadingPlaceHolder.xnb</Output>
@@ -364,11 +364,23 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Parameters>
-        <Data Key="ColorKeyColor">0, 0, 0, 255</Data>
+        <Data Key="ColorKeyColor">255, 255, 255, 255</Data>
       </Parameters>
       <Options>None</Options>
       <Output>\\ctstudent2\studentusers\100281608\Desktop\GitHub\ISD\ItalianStickDudes\ItalianStickDudes\ItalianStickDudes\bin\x86\Debug\Content\MenuPlaceHolder.xnb</Output>
       <Time>2013-10-19T06:54:23.7794985+01:00</Time>
+    </Item>
+    <Item>
+      <Source>Foreground_Lamp.png</Source>
+      <Name>Foreground_Lamp</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Parameters>
+        <Data Key="ColorKeyColor">0, 0, 0, 255</Data>
+      </Parameters>
+      <Options>None</Options>
+      <Output>\\ctstudent2\studentusers\100281608\Desktop\GitHub\ISD\ItalianStickDudes\ItalianStickDudes\ItalianStickDudes\bin\x86\Debug\Content\Foreground_Lamp.xnb</Output>
+      <Time>2013-10-19T16:47:43.0010194+01:00</Time>
     </Item>
     <BuildSuccessful>true</BuildSuccessful>
     <Settings>

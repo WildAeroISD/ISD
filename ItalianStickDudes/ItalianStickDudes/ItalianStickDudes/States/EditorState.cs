@@ -175,6 +175,10 @@ namespace ItalianStickDudes
             tex.Name = "Foreground_Stone_Wall";
             AvailableTextures.Add("Foreground_Stone_Wall", tex);
 
+            tex = Content.Load<Texture2D>("Foreground_Lamp");
+            tex.Name = "Foreground_Lamp";
+            AvailableTextures.Add("Foreground_Lamp", tex);
+
         }
 
         public void Update(GameTime gameTime)
