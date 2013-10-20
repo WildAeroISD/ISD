@@ -131,7 +131,16 @@ namespace ItalianStickDudes
                 {
                     Jumping = true;
                     OnGround = false;
-                    JumpHeight = Position.Y - 150.0f;
+                    JumpHeight = Position.Y - 190.0f;
+                }
+            }
+
+            else if (gamePad.Buttons.A == ButtonState.Released)
+            {
+                if (Jumping)
+                {
+                    Jumping = false;
+                    Falling = true;
                 }
             }
 

@@ -23,7 +23,10 @@ namespace ItalianStickDudes
         public Collision collision;
         private Dictionary<string, Texture2D> AvailableTextures;
 
+        public Vector2 FurthestAway;
+
         private string FPSText;
+
 
         public PlayingState()
         {
@@ -96,9 +99,36 @@ namespace ItalianStickDudes
                 for (int p = 0; p < Players.Count; p++)
                 {
                     Players[p].Update(gameTime, Input);
-                }
 
-                
+                    Vector2 pos = camera.GetPosition();
+                    pos = Vector2.Transform(pos, Matrix.Invert(camera.GetTransform()));
+
+                    Vector2 pPos = Players[p].Position;
+                    pPos = Vector2.Transform(pPos, Matrix.Invert(camera.GetTransform()));
+
+                    if (pPos.X < (pos.X - 1080))
+                    {
+                        camera.Move(new Vector2(-20.0f, 0.0f));
+
+                    }
+                    else if (pPos.X > (pos.X + 1080))
+                    {
+                        camera.Move(new Vector2(20.0f, 0.0f));
+                  
+                    }
+
+                    if (pPos.Y < (pos.Y - 720))
+                    {
+                        camera.Move(new Vector2(0.0f, -20.0f));
+                  
+                    }
+                    else if (pPos.Y > (pos.Y + 720))
+                    {
+                        camera.Move(new Vector2(0.0f, 20.0f));
+                 
+                    }
+
+                }
             }
             else
             {

@@ -16,7 +16,7 @@ namespace ItalianStickDudes
 
         public Camera()
         {
-            Zoom = 0.4f;
+            Zoom = 0.2f;
             Rotation = 0.0f;
             Position = Vector2.Zero;
             Transform = Matrix.Identity;
