@@ -27,6 +27,10 @@ Content\Props_Crate.xnb
 Content\Top_Full.xnb
 Content\Top_Gap_Left.xnb
 Content\Top_Gap_Right.xnb
-Content\LoadingPlaceHolder.xnb
-Content\MenuPlaceHolder.xnb
 Content\Foreground_Lamp.xnb
+Content\Loading.xnb
+Content\Menu.xnb
+Content\Player3.xnb
+Content\Player2.xnb
+Content\Player4.xnb
+Content\Player1.xnb

@@ -26,8 +26,8 @@ namespace ItalianStickDudes
         protected Dictionary<string, AnimationInfo> Animations;
         protected AnimationInfo CurrentAnimaion;
 
-        protected int Rows;
-        protected int Columns;
+        public int Rows;
+        public int Columns;
         protected int TotalFrames;
         protected int CurrentFrame;
 

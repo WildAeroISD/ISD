@@ -9,39 +9,39 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace ItalianStickDudes
 {
-    public struct PlayerCollisionState
-    {
-        public bool moveLeft;
-        public bool moveRight;
-        public bool moveUp;
-        public bool moveDown;
-    }
-
     public struct MovementState
     {
         public bool left, right;
     }
 
+    public struct MoveState
+    {
+       public bool canMoveRight, canMoveLeft;
+       public bool canMoveDown, canMoveUp;
+    }
+    
+
     class Player : AnimatedSprite
     {
         private int PlayerNumber;
-        private Vector2 Velocity;
+        public Vector2 Velocity;
 
-        public PlayerCollisionState collisionState = new PlayerCollisionState();
         private MovementState movementState = new MovementState();
 
         private bool lastDireciton = false;
+
+        public MoveState moveState = new MoveState();
+
         public bool OnGround = false;
         public bool Jumping = false;
         public bool Falling = true;
-        private float JumpOffset = 0.0f;
 
         public Player()
         {
-            collisionState.moveDown = true;
-            collisionState.moveUp = true;
-            collisionState.moveLeft = true;
-            collisionState.moveRight = true;
+            moveState.canMoveLeft = true;
+            moveState.canMoveRight = true;
+            moveState.canMoveUp = true;
+            moveState.canMoveDown = true;
 
             movementState.left = false;
             movementState.right = false;
@@ -52,6 +52,8 @@ namespace ItalianStickDudes
             Position = StartPosition;
             SpriteTexture = playerTexture;
             PlayerNumber = WhichPlayer;
+
+            
             
             InitializeAnimation(5, 8);
             AddAnimation("idle", 0, 2, 800);
@@ -87,12 +89,14 @@ namespace ItalianStickDudes
                 PlayAnimation("running");
                 
                 lastDireciton = false;
-                Velocity.X += 1.0f;
+                if(moveState.canMoveRight)
+                    Velocity.X += 1.0f;
             }
             else if (movementState.left)
             {
                 PlayAnimation("running");
                 lastDireciton = true;
+                if (moveState.canMoveLeft)
                 Velocity.X -= 1.0f;
     
             }
@@ -115,67 +119,41 @@ namespace ItalianStickDudes
             else if (Velocity.X < -20.0f)
                 Velocity.X = -20.0f;
 
-            //Update Position
-            if (Velocity.X > 0.0f && collisionState.moveRight)
-                Position.X += Velocity.X;
-            else if (Velocity.X < 0.0f && collisionState.moveLeft)
-                Position.X += Velocity.X;
-            else
+            if (!moveState.canMoveLeft || !moveState.canMoveRight)
                 Velocity.X = 0.0f;
+            if (!moveState.canMoveDown || !moveState.canMoveUp)
+                Velocity.Y = 0.0f;
 
-            
-            
-            if (!Jumping && OnGround)
+            if (gamePad.Buttons.A == ButtonState.Pressed)
             {
-                if (gamePad.Buttons.A == ButtonState.Pressed)
-                {
-                    Jumping = true;
-                    OnGround = false;
-                    JumpOffset = Position.Y - 300.0f;
-                }
-            }
-            else if (Jumping)
-            {
-                if (Position.Y < JumpOffset)
-                {
-                    Jumping = false;
-                    Falling = true;
-                    Velocity.Y = 0.0f;
-                }
-                else
-                {
-                    if (collisionState.moveUp)
-                        Velocity.Y -= 5.0f;
-                    else
-                    {
-                        Velocity.Y = 0.0f;
-                        Jumping = false;
-                        Falling = true;
-                    }
-                }
-            }
-
-
-            if (collisionState.moveDown)
-            {
+                Jumping = true;
                 OnGround = false;
+                Velocity.Y -= 2.0f;
+            }
+            else
+            {
+                Jumping = false;
+                if (!OnGround)
+                    Falling = true;
             }
 
-            if (!collisionState.moveDown)
-                Falling = false;
+            if (Falling)
+                Velocity.Y += 1.0f;
 
-            Position.Y += Velocity.Y;
+            if (OnGround)
+                Velocity.Y = 0.0f;
 
-            if (!OnGround && !Jumping)
-                Position.Y += 9.4f;
-          
-            BoundingBox.X = (int)Position.X;
-            BoundingBox.Y = (int)Position.Y;
+            Position += Velocity;
 
-            collisionState.moveDown = true;
-            collisionState.moveUp = true;
-            collisionState.moveLeft = true;
-            collisionState.moveRight = true;
+            int width = SpriteTexture.Width / Columns;
+            int height = SpriteTexture.Height / Rows;
+            BoundingBox = new Rectangle((int)Position.X, (int)Position.Y, width, height);
+
+            moveState.canMoveLeft = true;
+            moveState.canMoveRight = true;
+            moveState.canMoveUp = true;
+            moveState.canMoveDown = true;
+
         }
 
         public virtual void Draw(SpriteBatch spriteBatch, Matrix transform)
@@ -188,15 +166,11 @@ namespace ItalianStickDudes
             Rectangle sourceRectangle = new Rectangle(width * col, height * row, width, height);
             Rectangle destinationRectangle = new Rectangle((int)Position.X, (int)Position.Y, width, height);
 
-            spriteBatch.Begin(SpriteSortMode.BackToFront,
-                BlendState.AlphaBlend,
-                null, null, null, null, transform);
 
             if(lastDireciton)
                 spriteBatch.Draw(SpriteTexture, destinationRectangle, sourceRectangle, Color.White, 0, new Vector2(0, 0), SpriteEffects.FlipHorizontally, 0.4f);
             else
                 spriteBatch.Draw(SpriteTexture, destinationRectangle, sourceRectangle, Color.White, 0, new Vector2(0, 0), SpriteEffects.None, 0.4f);
-            spriteBatch.End();
         }
     }
 }

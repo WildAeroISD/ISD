@@ -72,7 +72,7 @@ namespace ItalianStickDudes
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
-            Texture2D tex = Content.Load<Texture2D>("MenuPlaceHolder");
+            Texture2D tex = Content.Load<Texture2D>("Menu");
 
             MainMenu.Initialize(tex);
         }
@@ -163,7 +163,7 @@ namespace ItalianStickDudes
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.CornflowerBlue);
+            GraphicsDevice.Clear(Color.Black);
 
             switch (CurrentState)
             {

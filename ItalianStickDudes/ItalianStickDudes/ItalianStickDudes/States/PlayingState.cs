@@ -16,11 +16,11 @@ namespace ItalianStickDudes
         private bool Paused;
 
         private Camera camera;
-        private Collision collisionManager;
         private List<Player> Players;
         public List<Sprite> MapTiles;
 
         public SpriteFont font;
+        public Collision collision;
         private Dictionary<string, Texture2D> AvailableTextures;
 
         private string FPSText;
@@ -31,8 +31,8 @@ namespace ItalianStickDudes
             Input = new InputManager();
             camera = new Camera();
             Players = new List<Player>();
-            collisionManager = new Collision();
             MapTiles = new List<Sprite>();
+            collision = new Collision();
             FPSText = "";
             AvailableTextures = new Dictionary<string, Texture2D>();
         }
@@ -44,7 +44,7 @@ namespace ItalianStickDudes
             for (int p = 0; p < numOfPlayers; p++)
             {
                 Players.Add(new Player());
-                Players[p].Initialize(AvailableTextures["Player"], p + 1, new Vector2(520, -500));
+                Players[p].Initialize(AvailableTextures["Player" + (p+1)], p + 1, new Vector2(520, 1500));
             }
         }
 
@@ -91,12 +91,14 @@ namespace ItalianStickDudes
                 if(Input.AnyPlayerPressed(Buttons.Start))
                     Paused = true;
 
-                collisionManager.CheckPlayerCollisions(Players, MapTiles);
+                collision.CheckCollisions(Players, MapTiles);
 
                 for (int p = 0; p < Players.Count; p++)
                 {
                     Players[p].Update(gameTime, Input);
                 }
+
+                
             }
             else
             {
@@ -118,25 +120,27 @@ namespace ItalianStickDudes
             spriteBatch.DrawString(font, FPSText, new Vector2(0, 0), Color.Black);
             spriteBatch.End();
 
+            
+
             spriteBatch.Begin(SpriteSortMode.BackToFront,
                 BlendState.AlphaBlend,
                 null, null, null, null, camera.GetTransform());
-            RasterizerState state = new RasterizerState();
-            state.FillMode = FillMode.WireFrame;
-            spriteBatch.GraphicsDevice.RasterizerState = state;
 
             for (int m = 0; m < MapTiles.Count; m++)
             {
-                if(MapTiles[m].GetDepth() == 0.4f)
-                    MapTiles[m].Draw(spriteBatch);
+                MapTiles[m].Draw(spriteBatch);
             }
-
-            spriteBatch.End();
 
             for (int p = 0; p < Players.Count; p++)
             {
                 Players[p].Draw(spriteBatch, transform);
             }
+
+            spriteBatch.End();
+
+            
+
+            
         }
 
         public virtual void End()

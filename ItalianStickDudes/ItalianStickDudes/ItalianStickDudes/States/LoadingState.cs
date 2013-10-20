@@ -24,7 +24,7 @@ namespace ItalianStickDudes
         {
             Content = content;
             PlayState = play;
-            loadingTexture = Content.Load<Texture2D>("LoadingPlaceHolder");
+            loadingTexture = Content.Load<Texture2D>("Loading");
         }
 
         public void Load(string mapName)
@@ -33,11 +33,16 @@ namespace ItalianStickDudes
             {
                 PlayState.font = Content.Load<SpriteFont>("DebugFont");
 
-                Texture2D tex = Content.Load<Texture2D>("Player");
-                if (!PlayState.AddNewTexture("Player", tex))
-                    tex.Dispose();
+                Texture2D tex = Content.Load<Texture2D>("Player1");
+                PlayState.AddNewTexture("Player1", tex);
+                tex = Content.Load<Texture2D>("Player2");
+                PlayState.AddNewTexture("Player2", tex);
+                tex = Content.Load<Texture2D>("Player3");
+                PlayState.AddNewTexture("Player3", tex);
+                tex = Content.Load<Texture2D>("Player4");
+                PlayState.AddNewTexture("Player4", tex);
 
-                Stream stream = File.Open("Maps\\Earlytest.entm", FileMode.Open);
+                Stream stream = File.Open("Maps\\ScavengerMapOne.entm", FileMode.Open);
                 BinaryFormatter bFormatter = new BinaryFormatter();
                 Map map = (Map)bFormatter.Deserialize(stream);
                 stream.Close();
