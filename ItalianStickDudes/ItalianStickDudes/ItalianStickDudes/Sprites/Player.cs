@@ -35,6 +35,7 @@ namespace ItalianStickDudes
         public bool OnGround = false;
         public bool Jumping = false;
         public bool Falling = true;
+        public float JumpHeight = 0.0f;
 
         public Player()
         {
@@ -126,16 +127,30 @@ namespace ItalianStickDudes
 
             if (gamePad.Buttons.A == ButtonState.Pressed)
             {
-                Jumping = true;
-                OnGround = false;
-                Velocity.Y -= 2.0f;
+                if (!Jumping && !Falling)
+                {
+                    Jumping = true;
+                    OnGround = false;
+                    JumpHeight = Position.Y - 150.0f;
+                }
             }
-            else
+
+            if(Jumping)
             {
-                Jumping = false;
-                if (!OnGround)
+                if (Position.Y < JumpHeight)
+                {
+                    Jumping = false;
                     Falling = true;
+                }
+                else
+                {
+                    Velocity.Y -= 5.0f;
+                }
             }
+
+            if (!OnGround)
+                   Falling = true;
+
 
             if (Falling)
                 Velocity.Y += 1.0f;
@@ -171,6 +186,7 @@ namespace ItalianStickDudes
                 spriteBatch.Draw(SpriteTexture, destinationRectangle, sourceRectangle, Color.White, 0, new Vector2(0, 0), SpriteEffects.FlipHorizontally, 0.4f);
             else
                 spriteBatch.Draw(SpriteTexture, destinationRectangle, sourceRectangle, Color.White, 0, new Vector2(0, 0), SpriteEffects.None, 0.4f);
+
         }
     }
 }

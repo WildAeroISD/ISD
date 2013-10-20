@@ -41,7 +41,7 @@ namespace ItalianStickDudes
             graphics.PreferredBackBufferWidth = 1280;
             graphics.PreferredBackBufferHeight = 720;
             graphics.IsFullScreen = false;
-
+            graphics.PreferMultiSampling = true;
             Content.RootDirectory = "Content";
 
         }

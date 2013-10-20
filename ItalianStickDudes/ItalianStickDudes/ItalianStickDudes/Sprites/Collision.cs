@@ -43,13 +43,16 @@ namespace ItalianStickDudes
                             {
                                 player.Position.Y += minYPush;
 
-                                if (minXPush > 0)
+                                if (minYPush < 0)
                                 {
                                     player.moveState.canMoveDown = false;
-                                   // player.OnGround = true;
+                                    player.Falling = false;
                                 }
                                 else
+                                {
                                     player.moveState.canMoveUp = false;
+                                    player.Jumping = false;
+                                }
 
                                 
                             }

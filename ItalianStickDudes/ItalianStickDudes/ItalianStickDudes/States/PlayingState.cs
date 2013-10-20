@@ -77,12 +77,12 @@ namespace ItalianStickDudes
 
             if (Input.GetCurrentMouseState().ScrollWheelValue < Input.GetPreviousMouseState().ScrollWheelValue)
             {
-                float zoom = camera.GetZoom() - 0.1f;
+                float zoom = camera.GetZoom() - 0.02f;
                 camera.SetZoom(zoom);
             }
             else if (Input.GetCurrentMouseState().ScrollWheelValue > Input.GetPreviousMouseState().ScrollWheelValue)
             {
-                float zoom = camera.GetZoom() + 0.1f;
+                float zoom = camera.GetZoom() + 0.02f;
                 camera.SetZoom(zoom);
             }
 
